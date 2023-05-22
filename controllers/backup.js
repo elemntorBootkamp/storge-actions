@@ -1,14 +1,14 @@
-const beckup= require("../models/beckup")
+const beckup= require("../models/backup")
 
 
 module.exports = {
 
-    getAllBeckups: (req, res) => {
+    getAllBackups: (req, res) => {
         User.find()
             .then((beckups) => { res.status(200).send({ beckups }) })
             .catch((error) => { res.status(404).send({ message: error.message }) })
     },
-    addBeckup:(req,res)=> {
+    addBackup:(req,res)=> {
         const beckups= new beckups(req.body);
         beckups.save(function(error) { 
               if (error)
