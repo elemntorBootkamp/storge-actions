@@ -2,16 +2,38 @@ const express = require('express')
 const bodyPasrer = require('body-parser')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const cors = require("cors");
+const cors = require('cors');
+const swaggerUI = require('swagger-ui-express')
+const swaggerJsDoc = require('swagger-jsdoc')
 
 const websiteRouter = require('./api/routes/website')
 const backupRouter = require('./api/routes/backup')
 
 const app = express()
 
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Library API",
+            virsion: "1.0.0",
+            descraption: "A simple express library API"
+        },
+        server: [
+            {
+                url: "http://localhost:3000"
+            }
+        ],
+    },
+    apis: ["./routs/*.js"],
+}
+const specs = swaggerJsDoc(options)
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
+
 dotenv.config()
 app.use(cors());
-const port= process.env.PORT
+const port = process.env.PORT
 
 app.use(bodyPasrer.json())
 
