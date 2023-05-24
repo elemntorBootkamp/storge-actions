@@ -63,6 +63,7 @@
     "string_decoder": "^1.3.0",
     "strip-ansi": "^6.0.1",
     "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
     "tar": "^6.1.13",
     "typedarray": "^0.0.6",
     "util-deprecate": "^1.0.2",
