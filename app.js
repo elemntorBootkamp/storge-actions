@@ -4,28 +4,30 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const cors = require("cors");
 
-const websiteRouter = require('./api/routes/website')
-const backupRouter = require('./api/routes/backup')
+const websiteRouter = require('./routes/website')
+const backupRouter = require('./routes/backup')
 
 const app = express()
 
 dotenv.config()
 app.use(cors());
-const port= process.env.PORT
+const port = process.env.PORT
 
 app.use(bodyPasrer.json())
 
 const connectionParams = {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
 }
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     .then(() => {
-        console.log('connect to mongoDB');
+        console.log('Connected to MongoDB');
     })
     .catch((error) => {
-        console.log(`error: ${error}`);
-    })
+        console.log(`Error connecting to MongoDB: ${error}`);
+    });
+
 
 app.use('/website', websiteRouter)
 app.use('/backup', backupRouter)
