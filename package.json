@@ -73,6 +73,10 @@
     "yallist": "^4.0.0"
   },
   "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.25.2",
     "mocha": "~1.21.4",
     "socket.io-client": "~1.1.0"
   },

@@ -1,20 +1,20 @@
-const beckup= require("../models/backup")
+const Backup= require("../models/backup")
 
 
 module.exports = {
 
     getAllBackups: (req, res) => {
-        User.find()
-            .then((beckups) => { res.status(200).send({ beckups }) })
+        Backup.find()
+            .then((backups) => { res.status(200).send({ backups }) })
             .catch((error) => { res.status(404).send({ message: error.message }) })
     },
     addBackup:(req,res)=> {
-        const beckups= new beckups(req.body);
-        beckups.save(function(error) { 
+        const backup= new Backup(req.body);
+        backup.save(function(error) { 
               if (error)
                   res.status(404).send(err)
             else
-            res.status(200).send(website)
+            res.status(200).send(backup)
            })
         }
 }

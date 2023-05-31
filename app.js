@@ -1,8 +1,9 @@
 const express = require('express')
 const bodyPasrer = require('body-parser')
 const mongoose = require('mongoose')
+mongoose.set('strictQuery', true)
 const dotenv = require('dotenv')
-const cors = require("cors");
+//const cors = require("cors");
 
 const websiteRouter = require('./routes/website')
 const backupRouter = require('./routes/backup')
@@ -10,7 +11,7 @@ const backupRouter = require('./routes/backup')
 const app = express()
 
 dotenv.config()
-app.use(cors());
+//app.use(cors());
 const port = process.env.PORT
 
 app.use(bodyPasrer.json())
