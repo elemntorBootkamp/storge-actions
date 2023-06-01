@@ -1,5 +1,5 @@
-
 const winston = require('winston');
+
 const chalk = require('chalk');
 
 const logger = winston.createLogger({
@@ -38,11 +38,7 @@ const logger = winston.createLogger({
     new winston.transports.Console(),
     new winston.transports.File({
       filename: 'app.log',
-      level: 'info'
-    })
-  ]
+      level: 'info',
+    }),
+  ],
 });
-
-
-
-

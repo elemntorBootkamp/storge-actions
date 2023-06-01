@@ -1,12 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+
+const router = express.Router();
 
 const {
-    getAllWebsites,
-    addWebsite
-} = require('../controllers/website')
+  getAllWebsites,
+  addWebsite,
+} = require('../controllers/website');
 
-router.get('/', getAllWebsites)
-router.post('/add', addWebsite)
+router.get('/', getAllWebsites);
+router.post('/add', addWebsite);
 
-module.exports = router
+module.exports = router;
