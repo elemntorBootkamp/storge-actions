@@ -2,12 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const {
-    
     getAllWebsites,
     addWebsite
 } = require('../controllers/website')
 
 router.get('/', getAllWebsites)
-router.post('/add', addWebsite)
+router.post('/', addWebsite)
 
 module.exports = router

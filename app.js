@@ -1,17 +1,26 @@
 const express = require('express')
 const bodyPasrer = require('body-parser')
 const mongoose = require('mongoose')
+mongoose.set('strictQuery', true)
 const dotenv = require('dotenv')
-const cors = require("cors");
+const app=express();
+const swaggerUI = require('swagger-ui-express')
+const swaggerJsDoc = require('swagger-jsdoc')
+//const http = require('http')
+//const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+const websiteRouter = require('./routs/website')
+const backupRouter = require('./routs/backup')
 
-const websiteRouter = require('./api/routes/website')
-const backupRouter = require('./api/routes/backup')
 
-const app = express()
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 dotenv.config()
-app.use(cors());
-const port= process.env.PORT
+// app.use(cors());
+const port = process.env.PORT
+
+
 
 app.use(bodyPasrer.json())
 

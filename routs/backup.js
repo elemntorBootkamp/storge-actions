@@ -7,6 +7,6 @@ const {
 } = require('../controllers/backup')
 
 router.get('/', getAllBackups)
-router.post('/add', addBackup)
+router.post('/', addBackup)
 
 module.exports = router
