@@ -1,44 +1,40 @@
-const express = require('express')
-const bodyPasrer = require('body-parser')
-const mongoose = require('mongoose')
-mongoose.set('strictQuery', true)
-const dotenv = require('dotenv')
-const app=express();
-const swaggerUI = require('swagger-ui-express')
-const swaggerJsDoc = require('swagger-jsdoc')
-//const http = require('http')
-//const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger_output.json')
-const websiteRouter = require('./routs/website')
-const backupRouter = require('./routs/backup')
+const express = require('express');
 
+const bodyPasrer = require('body-parser');
 
+const mongoose = require('mongoose');
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile))
+mongoose.set('strictQuery', true);
 
-dotenv.config()
-// app.use(cors());
-const port = process.env.PORT
+const dotenv = require('dotenv');
 
+const websiteRouter = require('./routes/website');
 
+const backupRouter = require('./routes/backup');
 
-app.use(bodyPasrer.json())
+const app = express();
+
+dotenv.config();
+const port = process.env.PORT;
+
+app.use(bodyPasrer.json());
 
 const connectionParams = {
-    useNewUrlParser: true,
-}
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
-    .then(() => {
-        console.log('connect to mongoDB');
-    })
-    .catch((error) => {
-        console.log(`error: ${error}`);
-    });
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.log(`Error connecting to MongoDB: ${error}`);
+  });
 
-app.use('/website', websiteRouter)
-app.use('/backup', backupRouter)
+app.use('/website', websiteRouter);
+app.use('/backup', backupRouter);
 
 app.listen(port, () => {
-    console.log(`my app is listening on http://localhost:${port}`);
-})
+  console.log(`my app is listening on http://localhost:${port}`);
+});
