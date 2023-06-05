@@ -34,7 +34,7 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     })
     .catch((error) => {
         console.log(`error: ${error}`);
-    })
+    });
 
 app.use('/website', websiteRouter)
 app.use('/backup', backupRouter)
