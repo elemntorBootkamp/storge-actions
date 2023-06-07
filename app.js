@@ -16,8 +16,9 @@ const app = express();
 
 dotenv.config();
 
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger_output.json')
+// eslint-disable-next-line import/no-extraneous-dependencies, import/order
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger_output.json');
 
 const port = process.env.PORT;
 
@@ -39,8 +40,7 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
 app.use('/website', websiteRouter);
 app.use('/backup', backupRouter);
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
-
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(port, () => {
   console.log(`my app is listening on http://localhost:${port}`);

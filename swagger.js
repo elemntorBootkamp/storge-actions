@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 const swaggerAutogen = require('swagger-autogen')();
 
 const outputFile = './swagger_output.json';
