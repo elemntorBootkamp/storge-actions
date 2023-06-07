@@ -1,4 +1,8 @@
 const express = require('express');
+const logger = require('./logger');
+const axios = require('axios');
+const pinoHTTP = require('pino-http');
+
 
 const bodyPasrer = require('body-parser');
 
@@ -31,10 +35,10 @@ const connectionParams = {
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .then(() => {
-    console.log('Connected to MongoDB');
+    logger.info('Connected to MongoDB');
   })
   .catch((error) => {
-    console.log(`Error connecting to MongoDB: ${error}`);
+    logger.error(`Error connecting to MongoDB: ${error}`);
   });
 
 app.use('/website', websiteRouter);
@@ -43,5 +47,5 @@ app.use('/backup', backupRouter);
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(port, () => {
-  console.log(`my app is listening on http://localhost:${port}`);
+  logger.info(`my app is listening on http://localhost:${port}`);
 });
