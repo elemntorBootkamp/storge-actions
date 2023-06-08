@@ -16,21 +16,9 @@ module.exports = pino(
   {
     level: process.env.PINO_LOG_LEVEL || 'info',
     formatters: {
-      level: (label) => {
-        return { level: label.toUpperCase() };
-      },
+      level: (label) => ({ level: label.toUpperCase() }),
     },
     timestamp: pino.stdTimeFunctions.isoTime,
   },
-  fileTransports
+  fileTransports,
 );
-
-
-
-
-
-
-
-
-
-

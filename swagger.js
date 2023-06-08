@@ -1,8 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-extraneous-dependencies
 const swaggerAutogen = require('swagger-autogen')();
 
 const outputFile = './swagger_output.json';
-const routesFiles = ['./routs/website.js', './routs/backup.js'];
+const routesFiles = ['./routes/website.js', './routes/backup.js'];
 
 const doc = {
   info: {
@@ -17,11 +17,11 @@ const doc = {
   produces: ['application/json'],
   tags: [
     {
-      name: 'website',
+      name: 'Website',
       description: 'Endpoints',
     },
     {
-      name: 'backup',
+      name: 'Backup',
       description: 'Endpoints',
     },
   ],
@@ -55,5 +55,5 @@ const doc = {
   },
 };
 
-// eslint-disable-next-line global-require, import/extensions
-swaggerAutogen(outputFile, routesFiles, doc).then(() => { require('./app.js'); });
+// eslint-disable-next-line global-require
+swaggerAutogen(outputFile, routesFiles, doc).then(() => { require('./app'); });

@@ -9,11 +9,11 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "website",
+      "name": "Website",
       "description": "Endpoints"
     },
     {
-      "name": "backup",
+      "name": "Backup",
       "description": "Endpoints"
     }
   ],
@@ -28,8 +28,11 @@
     "application/json"
   ],
   "paths": {
-    "/": {
+    "/website/": {
       "get": {
+        "tags": [
+          "Website"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -42,9 +45,69 @@
         }
       },
       "post": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "bwebsite",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/backup/": {
+      "get": {
+        "tags": [
+          "Backup"
+        ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Backup"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "backup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addBackup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     }
   },
@@ -54,7 +117,7 @@
       "properties": {
         "title": {
           "type": "string",
-          "example": "fdghjk,"
+          "example": "fdghjk"
         },
         "description": {
           "type": "string",
