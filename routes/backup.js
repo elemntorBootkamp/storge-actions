@@ -1,13 +1,10 @@
-const express = require('express');
-
-const router = express.Router();
-
 const {
   getAllBackups,
   addBackup,
 } = require('../controllers/backup');
 
-router.get('/', getAllBackups);
-router.post('/add', addBackup);
-
-module.exports = router;
+// eslint-disable-next-line func-names
+module.exports = function (router) {
+  router.get('/backup/', getAllBackups);
+  router.post('/backup/', addBackup);
+};

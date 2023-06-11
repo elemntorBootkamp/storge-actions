@@ -1,13 +1,10 @@
-const express = require('express');
-
-const router = express.Router();
-
 const {
   getAllWebsites,
   addWebsite,
 } = require('../controllers/website');
 
-router.get('/', getAllWebsites);
-router.post('/add', addWebsite);
-
-module.exports = router;
+// eslint-disable-next-line func-names
+module.exports = function (router) {
+  router.get('/website/', getAllWebsites);
+  router.post('/website/', addWebsite);
+};

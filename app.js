@@ -1,8 +1,8 @@
 const express = require('express');
+// eslint-disable-next-line import/order
 const logger = require('./logger');
-const axios = require('axios');
-const pinoHTTP = require('pino-http');
-
+// const axios = require('axios');
+// const pinoHTTP = require('pino-http');
 
 const bodyPasrer = require('body-parser');
 
@@ -12,15 +12,11 @@ mongoose.set('strictQuery', true);
 
 const dotenv = require('dotenv');
 
-const websiteRouter = require('./routes/website');
-
-const backupRouter = require('./routes/backup');
-
 const app = express();
 
 dotenv.config();
 
-// eslint-disable-next-line import/no-extraneous-dependencies, import/order
+// eslint-disable-next-line import/no-extraneous-dependencies
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger_output.json');
 
@@ -41,8 +37,9 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     logger.error(`Error connecting to MongoDB: ${error}`);
   });
 
-app.use('/website', websiteRouter);
-app.use('/backup', backupRouter);
+require('./routes/website')(app);
+
+require('./routes/backup')(app);
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
