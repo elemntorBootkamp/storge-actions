@@ -34,6 +34,7 @@ const doc = {
       cpu: '4 GHz',
       memory: 8,
       status: 200,
+      isDeleted: false,
     },
     addWebsite: {
       $title: 'My Website',
@@ -43,6 +44,10 @@ const doc = {
       $cpu: '4 GHz',
       $memory: 8,
       $status: 200,
+      $isDeleted: false,
+    },
+    deleteWebsite: {
+      $_id: '6476fafd31fe80568d17ccb5',
     },
     Backup: {
       siteId: 12345,

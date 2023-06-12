@@ -69,6 +69,41 @@
         }
       }
     },
+    "/website/{id}": {
+      "delete": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bwebsite",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deleteWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/backup/": {
       "get": {
         "tags": [
@@ -148,6 +183,10 @@
         "status": {
           "type": "number",
           "example": 200
+        },
+        "isDeleted": {
+          "type": "boolean",
+          "example": false
         }
       }
     },
@@ -187,6 +226,10 @@
         "status": {
           "type": "number",
           "example": 200
+        },
+        "isDeleted": {
+          "type": "boolean",
+          "example": false
         }
       },
       "required": [
@@ -196,7 +239,20 @@
         "typeOfDomain",
         "cpu",
         "memory",
-        "status"
+        "status",
+        "isDeleted"
+      ]
+    },
+    "deleteWebsite": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "6476fafd31fe80568d17ccb5"
+        }
+      },
+      "required": [
+        "_id"
       ]
     },
     "Backup": {

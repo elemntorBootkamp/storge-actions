@@ -29,6 +29,10 @@ const websiteSchema = mongoose.Schema({
     type: Number,
     require: false,
   },
+  isDeleted: {
+    type: Boolean,
+    require: false,
+  },
 });
 
 module.exports = mongoose.model('Website', websiteSchema);
