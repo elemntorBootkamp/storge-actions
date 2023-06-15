@@ -43,12 +43,12 @@ module.exports = {
     const webId = req.params.id;
     try {
       const website = await Website.findById(webId);
-      if (website.isDeleted === false) {
-        website.isDeleted = true;
+      if (website.status === 'Active') {
+        website.status = 'About to be deleted';
         await website.save();
         res.status(200).send(website);
       }
-      res.status(400).send({ message: 'This website is already deleted!' });
+      res.status(400).send({ message: `This website is already ${website.status}` });
     } catch (error) {
       res.status(404).send(error);
     }

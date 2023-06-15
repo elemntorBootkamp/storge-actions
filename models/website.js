@@ -26,12 +26,9 @@ const websiteSchema = mongoose.Schema({
     require: false,
   },
   status: {
-    type: Number,
-    require: false,
-  },
-  isDeleted: {
-    type: Boolean,
-    require: false,
+    type: String,
+    enum: ['Active', 'About to be deleted', 'Deleted'],
+    require: true,
   },
 });
 
