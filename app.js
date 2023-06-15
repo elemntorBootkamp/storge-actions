@@ -14,11 +14,15 @@ const dotenv = require('dotenv');
 
 const app = express();
 
-dotenv.config();
+require('./routes/website')(app);
+
+require('./routes/backup')(app);
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger_output.json');
+
+dotenv.config();
 
 const port = process.env.PORT;
 
@@ -36,10 +40,6 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .catch((error) => {
     logger.error(`Error connecting to MongoDB: ${error}`);
   });
-
-require('./routes/website')(app);
-
-require('./routes/backup')(app);
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
