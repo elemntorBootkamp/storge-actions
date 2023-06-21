@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const websiteSchema = mongoose.Schema({
+  
   title: {
     type: String,
     require: false,
@@ -29,6 +30,7 @@ const websiteSchema = mongoose.Schema({
     type: Number,
     require: false,
   },
+
 });
 
 module.exports = mongoose.model('Website', websiteSchema);
