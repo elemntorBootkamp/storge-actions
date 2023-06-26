@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true,
+   // "commonjs": true,
+    "es2021": true
+  },
+  "extends": "airbnb-base",
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "eslint-comments"
+  ],
+  "rules": {
+    "eslint-comments/no-unused-disable": "error",
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "windows"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "import/extensions": ["error", "always"]
+  }
+}

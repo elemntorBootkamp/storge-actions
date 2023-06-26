@@ -1,10 +1,9 @@
-const {
-  getAllBackups,
-  addBackup,
-} = require('../controllers/backup');
+import { Router } from 'express';
+import { getAllBackups, addBackup } from '../controllers/backup.js';
 
-// eslint-disable-next-line func-names
-module.exports = function (router) {
-  router.get('/backup/', getAllBackups);
-  router.post('/backup/', addBackup);
-};
+const router = Router();
+
+router.get('/backup/', getAllBackups);
+router.post('/backup/', addBackup);
+
+export default router;

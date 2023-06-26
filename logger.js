@@ -1,24 +1,42 @@
-const pino = require('pino');
-const fs = require('fs');
-const winston = require('winston');
-const chalk = require('chalk');
+import winston from 'winston';
+import chalk from 'chalk';
 const logger = winston.createLogger({
-  level: 'error',
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json(),
+  ),
   transports: [
-    new winston.transports.File({ filename: 'app.log' }),
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.printf((info) => {
+          const { level, message, timestamp } = info;
+          const coloredMessage = level === 'warn' ? chalk.yellow(message) : message;
+          return `${timestamp} [${level}]: ${coloredMessage}`;
+        }),
+      ),
+    }),
+    new winston.transports.File({
+      filename: 'logfile.log',
+      format: winston.format.combine(
+        winston.format.printf((info) => {
+          const { level, message, timestamp } = info;
+          const coloredMessage = level === 'warn' ? chalk.yellow(message) : message;
+          return `${timestamp} [${level}]: ${coloredMessage}`;
+        }),
+      ),
+    }),
   ],
 });
-const fileTransports = pino.transport({
-  target: 'pino/file',
-  options: { destination: `${__dirname}/app.log` },
-});
-module.exports = pino(
-  {
-    level: process.env.PINO_LOG_LEVEL || 'info',
-    formatters: {
-      level: (label) => ({ level: label.toUpperCase() }),
-    },
-    timestamp: pino.stdTimeFunctions.isoTime,
-  },
-  fileTransports,
-);
+logger.info('Starting the application...');
+const users = [
+  { id: 1, name: 'John Doe' },
+  { id: 2, name: 'Jane Doe' },
+  { id: 3, name: 'Bob Smith' },
+];
+logger.info(`Found ${users.length} users`);
+logger.warn('This is a warning message');
+logger.warn(chalk.yellow('This is another warning message'));
+export default logger;
+

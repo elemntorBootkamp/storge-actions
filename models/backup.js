@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const backupSchema = mongoose.Schema({
   backupId: mongoose.Schema.Types.ObjectId,
@@ -8,8 +8,8 @@ const backupSchema = mongoose.Schema({
   },
   description: {
     type: String,
-    require: false,
+    require: true,
   },
 });
 
-module.exports = mongoose.model('Backup', backupSchema);
+export default mongoose.model('Backup', backupSchema);
