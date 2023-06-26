@@ -1,4 +1,6 @@
 import Backup from '../models/backup.js';
+import Website from '../models/website.js';
+import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
 export const getAllBackups = (req, res) => {
   /*
@@ -30,7 +32,7 @@ export const addBackup = async (req, res) => {
 export const backupSite = async (req, res) => {
   const website = await Website.findById(req.params.id).exec();
   const funcN = 'backupSite';
-  rabbitMQ.sendToRabbitMQ(website, funcN);
+  sendToRabbitMQ(website, funcN);
   console.log(website);
 
   res.status(200).send({ message: 'Website copied successfully' });

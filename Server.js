@@ -1,7 +1,7 @@
-import Website from './models/website';
-import Backup from './models/backup';
+import Website from './models/website.js';
+import Backup from './models/backup.js';
 
-export const backupSite = async (data) => {
+const backupSite = async (data) => {
   const website = data.data;
   // Create a new instance of the Website model
   const newWebsite = new Website({
@@ -11,7 +11,7 @@ export const backupSite = async (data) => {
     typeOfDomain: website.typeOfDomain,
     cpu: website.cpu,
     memory: website.memory,
-    status: 'pending',
+    status: 1,
   });
 
   const newBackup = new Backup({
@@ -25,4 +25,4 @@ export const backupSite = async (data) => {
   await newBackup.save();
   console.log('Website copied successfully');
 };
-() => true;
+export default backupSite;

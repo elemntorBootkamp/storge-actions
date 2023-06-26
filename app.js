@@ -19,7 +19,7 @@ const app = express();
 
 dotenv.config();
 
-const port = process.env.PORT;
+const port = 3000;
 
 app.use(bodyPasrer.json());
 

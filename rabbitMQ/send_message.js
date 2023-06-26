@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
 
-export const sendToRabbitMQ = async (data, extraParam) => {
+const sendToRabbitMQ = async (data, extraParam) => {
   const queue = 'website-subscriptions';
   let connection;
   try {
@@ -20,3 +20,4 @@ export const sendToRabbitMQ = async (data, extraParam) => {
     if (connection) await connection.close();
   }
 };
+export default sendToRabbitMQ;
