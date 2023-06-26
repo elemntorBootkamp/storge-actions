@@ -27,3 +27,11 @@ export const addBackup = async (req, res) => {
     res.status(404).send(err);
   }
 };
+export const backupSite = async (req, res) => {
+  const website = await Website.findById(req.params.id).exec();
+  const funcN = 'backupSite';
+  rabbitMQ.sendToRabbitMQ(website, funcN);
+  console.log(website);
+
+  res.status(200).send({ message: 'Website copied successfully' });
+};
