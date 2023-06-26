@@ -1,24 +1,23 @@
-const express = require('express');
-// eslint-disable-next-line import/order
-const logger = require('./logger');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bodyPasrer from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import { readFileSync } from 'fs';
+import logger from './logger.js';
+import websiteRoutes from './routes/website.js';
+import backupRoutes from './routes/backup.js';
+
+const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
+
 // const axios = require('axios');
 // const pinoHTTP = require('pino-http');
 
-const bodyPasrer = require('body-parser');
-
-const mongoose = require('mongoose');
-
 mongoose.set('strictQuery', true);
-
-const dotenv = require('dotenv');
 
 const app = express();
 
 dotenv.config();
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./swagger_output.json');
 
 const port = process.env.PORT;
 
@@ -37,12 +36,13 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     logger.error(`Error connecting to MongoDB: ${error}`);
   });
 
-require('./routes/website')(app);
-
-require('./routes/backup')(app);
+app.use(websiteRoutes);
+app.use(backupRoutes);
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(port, () => {
   logger.info(`my app is listening on http://localhost:${port}`);
 });
+
+export default app;

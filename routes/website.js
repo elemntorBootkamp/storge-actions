@@ -1,10 +1,9 @@
-const {
-  getAllWebsites,
-  addWebsite,
-} = require('../controllers/website');
+import { Router } from 'express';
+import { getAllWebsites, addWebsite } from '../controllers/website.js';
 
-// eslint-disable-next-line func-names
-module.exports = function (router) {
-  router.get('/website/', getAllWebsites);
-  router.post('/website/', addWebsite);
-};
+const router = Router();
+
+router.get('/website/', getAllWebsites);
+router.post('/website/', addWebsite);
+
+export default router;

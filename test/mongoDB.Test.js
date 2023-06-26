@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const logger = require('../logger');
+import mongoose from 'mongoose';
+import { describe, it } from 'jest';
+import logger from '../logger.js';
 
-// eslint-disable-next-line no-undef
 describe('MongoDB Connection', () => {
-  // eslint-disable-next-line no-undef
   it('should connect to MongoDB', () => mongoose.connect('mongodb://localhost:27017/storge-action')
     .then(() => {
       logger.info('MongoDB connection successful');
