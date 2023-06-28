@@ -33,7 +33,6 @@ export const backupSite = async (req, res) => {
   const website = await Website.findById(req.params.id).exec();
   const funcN = 'backupSite';
   sendToRabbitMQ(website, funcN);
-  console.log(website);
 
-  res.status(200).send({ message: 'Website copied successfully' });
+  res.status(200).send({ message: 'The request has been forwarded for processing' });
 };

@@ -1,7 +1,9 @@
 import amqp from 'amqplib';
+import logger from '../logger.js';
+import { queueName } from './config.js';
 
 const sendToRabbitMQ = async (data, extraParam) => {
-  const queue = 'website-subscriptions';
+  const queue = queueName;
   let connection;
   try {
     connection = await amqp.connect('amqp://localhost');
@@ -12,10 +14,9 @@ const sendToRabbitMQ = async (data, extraParam) => {
     };
     await channel.assertQueue(queue, { durable: false });
     channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
-    console.log(' [x] Sent \'%s\'', message);
     await channel.close();
   } catch (err) {
-    console.warn(err);
+    logger.error(err);
   } finally {
     if (connection) await connection.close();
   }

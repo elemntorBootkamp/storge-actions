@@ -1,14 +1,10 @@
 import amqp from 'amqplib';
-import addWebsite from '../controllers/website.js';
-import backupSite from '../Server.js';
+import backupSite from '../service.js';
 import logger from '../logger.js';
 
 export const handleData = async (data) => {
-  const functionName = data.extraParam;
-  switch (functionName) {
-  case 'addWebsite':
-    addWebsite(data);
-    break;
+  const action = data.extraParam;
+  switch (action) {
   case 'backupSite':
 
     backupSite(data);
@@ -17,7 +13,7 @@ export const handleData = async (data) => {
     //   addBackup(data);
     //   break;
   default:
-    logger.info(`Function ${functionName} not found.`);
+    logger.info(`Function ${action} not found.`);
   }
 };
 
@@ -35,3 +31,4 @@ export const startConsumer = async () => {
 
   logger.info(`Waiting for messages in ${queueName}...`);
 };
+export default startConsumer;

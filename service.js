@@ -1,5 +1,6 @@
 import Website from './models/website.js';
 import Backup from './models/backup.js';
+import logger from './logger.js';
 
 const backupSite = async (data) => {
   const website = data.data;
@@ -23,6 +24,6 @@ const backupSite = async (data) => {
   await newWebsite.save();
 
   await newBackup.save();
-  console.log('Website copied successfully');
+  logger.info('Website copied successfully');
 };
 export default backupSite;
