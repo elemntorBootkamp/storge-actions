@@ -4,7 +4,6 @@ import logger from './logger.js';
 
 const backupSite = async (data) => {
   const website = data.data;
-  // Create a new instance of the Website model
   const newWebsite = new Website({
     title: website.title,
     description: website.description,
@@ -20,7 +19,6 @@ const backupSite = async (data) => {
     description: website.description,
   });
 
-  // Save the new website to the database
   await newWebsite.save();
 
   await newBackup.save();

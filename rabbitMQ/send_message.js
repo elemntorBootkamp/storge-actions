@@ -14,6 +14,7 @@ const sendToRabbitMQ = async (data, extraParam) => {
     };
     await channel.assertQueue(queue, { durable: false });
     channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+    logger.info(' [x] Sent \'%s\'', message);
     await channel.close();
   } catch (err) {
     logger.error(err);
