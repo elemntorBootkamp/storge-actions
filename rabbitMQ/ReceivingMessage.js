@@ -17,7 +17,7 @@ export const startConsumer = async () => {
   const connection = await amqp.connect('amqp://localhost');
   const channel = await connection.createChannel();
   const queueName = 'website-subscriptions';
-  const durable = false; 
+  const durable = false;
   await channel.assertQueue(queueName, { durable });
 
   channel.consume(queueName, (message) => {
