@@ -7,6 +7,7 @@ import { readFileSync } from 'fs';
 import logger from './logger.js';
 import websiteRoutes from './routes/website.js';
 import backupRoutes from './routes/backup.js';
+import { startConsumer } from './rabbitMQ/ReceivingMessage.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
@@ -44,5 +45,5 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.listen(port, () => {
   logger.info(`my app is listening on http://localhost:${port}`);
 });
-
+startConsumer();
 export default app;
