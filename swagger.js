@@ -1,8 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
-const swaggerAutogen = require('swagger-autogen')();
+import swaggerAutogen from 'swagger-autogen';
+import logger from './logger.js';
 
 const outputFile = './swagger_output.json';
-const routesFiles = ['./routs/website.js', './routs/backup.js'];
+const routesFiles = ['./routes/website.js', './routes/backup.js'];
 
 const doc = {
   info: {
@@ -17,43 +17,52 @@ const doc = {
   produces: ['application/json'],
   tags: [
     {
-      name: 'website',
+      name: 'Website',
       description: 'Endpoints',
     },
     {
-      name: 'backup',
+      name: 'Backup',
       description: 'Endpoints',
     },
   ],
   definitions: {
     Website: {
-      title: 'fdghjk',
-      description: 'fghj',
-      domain: ['hkl'],
-      typeOfDomain: 'school',
-      cpu: 'intel core i7',
-      memory: 673,
-      status: 10,
+      managerId: '1234',
+      title: 'My Website',
+      description: 'This is a description of my website',
+      domain: ['example.com'],
+      typeOfDomain: 'com',
+      cpu: 'Intel Core i7',
+      memory: 16,
+      status: 1,
+      websiteLogo: 'aaa.png',
     },
-    addWebsite: {
-      $title: 'fdghjk,',
-      $description: 'fghj',
-      $domain: ['hkl'],
-      $typeOfDomain: 'school',
-      $cpu: 'intel core i7',
-      $memory: 673,
-      $status: 10,
+    createWebsite: {
+      $managerId: '1234',
+      $title: 'My Website',
+      $description: 'This is a description of my website',
+      $domain: ['example.com'],
+      $typeOfDomain: 'com',
+      $cpu: 'Intel Core i7',
+      $memory: 16,
+      $status: 1,
+      $websiteLogo: 'aaa.png',
+    },
+    getWebsiteById: {
+      $_id: '648983899e38afa07db32c65',
     },
     Backup: {
       siteId: 1,
-      description: 'ddd',
+      description: 'fghj',
     },
     addBackup: {
       $siteId: 1,
-      $descriprtion: 'fghj',
+      $description: 'fghj',
     },
   },
 };
+swaggerAutogen(outputFile, routesFiles, doc).then(() => {
+  logger.info('run');
+});
 
-// eslint-disable-next-line global-require, import/extensions
-swaggerAutogen(outputFile, routesFiles, doc).then(() => { require('./app.js'); });
+export default doc;

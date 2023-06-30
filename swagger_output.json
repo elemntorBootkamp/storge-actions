@@ -9,11 +9,11 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "website",
+      "name": "Website",
       "description": "Endpoints"
     },
     {
-      "name": "backup",
+      "name": "Backup",
       "description": "Endpoints"
     }
   ],
@@ -28,8 +28,84 @@
     "application/json"
   ],
   "paths": {
-    "/": {
+    "/Website/": {
       "get": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/Website/{id}": {
+      "get": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/getWebsiteById"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/Website/create": {
+      "post": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "website",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        }
+      }
+    },
+    "/backup/": {
+      "get": {
+        "tags": [
+          "Backup"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -42,9 +118,28 @@
         }
       },
       "post": {
+        "tags": [
+          "Backup"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "backup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addBackup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     }
   },
@@ -52,18 +147,22 @@
     "Website": {
       "type": "object",
       "properties": {
+        "managerId": {
+          "type": "string",
+          "example": "1234"
+        },
         "title": {
           "type": "string",
-          "example": "fdghjk,"
+          "example": "My Website"
         },
         "description": {
           "type": "string",
-          "example": "fghj"
+          "example": "This is a description of my website"
         },
         "domain": {
           "type": "array",
           "example": [
-            "hkl"
+            "example.com"
           ],
           "items": {
             "type": "string"
@@ -71,37 +170,45 @@
         },
         "typeOfDomain": {
           "type": "string",
-          "example": "school"
+          "example": "com"
         },
         "cpu": {
           "type": "string",
-          "example": "intel core i7"
+          "example": "Intel Core i7"
         },
         "memory": {
           "type": "number",
-          "example": 673
+          "example": 16
         },
         "status": {
           "type": "number",
-          "example": 10
+          "example": 1
+        },
+        "websiteLogo": {
+          "type": "string",
+          "example": "aaa.png"
         }
       }
     },
-    "addWebsite": {
+    "createWebsite": {
       "type": "object",
       "properties": {
+        "managerId": {
+          "type": "string",
+          "example": "1234"
+        },
         "title": {
           "type": "string",
-          "example": "fdghjk,"
+          "example": "My Website"
         },
         "description": {
           "type": "string",
-          "example": "fghj"
+          "example": "This is a description of my website"
         },
         "domain": {
           "type": "array",
           "example": [
-            "hkl"
+            "example.com"
           ],
           "items": {
             "type": "string"
@@ -109,29 +216,47 @@
         },
         "typeOfDomain": {
           "type": "string",
-          "example": "school"
+          "example": "com"
         },
         "cpu": {
           "type": "string",
-          "example": "intel core i7"
+          "example": "Intel Core i7"
         },
         "memory": {
           "type": "number",
-          "example": 673
+          "example": 16
         },
         "status": {
           "type": "number",
-          "example": 10
+          "example": 1
+        },
+        "websiteLogo": {
+          "type": "string",
+          "example": "aaa.png"
         }
       },
       "required": [
+        "managerId",
         "title",
         "description",
         "domain",
         "typeOfDomain",
         "cpu",
         "memory",
-        "status"
+        "status",
+        "websiteLogo"
+      ]
+    },
+    "getWebsiteById": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "648983899e38afa07db32c65"
+        }
+      },
+      "required": [
+        "_id"
       ]
     },
     "Backup": {
@@ -143,7 +268,7 @@
         },
         "description": {
           "type": "string",
-          "example": "ddd"
+          "example": "fghj"
         }
       }
     },
@@ -154,14 +279,14 @@
           "type": "number",
           "example": 1
         },
-        "descriprtion": {
+        "description": {
           "type": "string",
           "example": "fghj"
         }
       },
       "required": [
         "siteId",
-        "descriprtion"
+        "description"
       ]
     }
   }

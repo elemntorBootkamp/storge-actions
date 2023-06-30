@@ -1,17 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { getAllWebsites, createWebsite, getWebsiteById } from '../controllers/website.js';
 
 const router = express.Router();
-
-const {
-  getAllWebsites,
-  addWebsite,
-  keycloakCheck,
-
-} = require('../controllers/website');
-
-router.get('/', getAllWebsites);
-router.get('/getById/:id', getWebsiteById);
-router.post('/add',keycloakCheck, addWebsite);
-
-
-module.exports = router;
+router.get('/Website/', getAllWebsites);
+router.get('/Website/:id', getWebsiteById);
+router.post('/Website/create', createWebsite);
+export default router;

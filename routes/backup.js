@@ -1,13 +1,9 @@
-const express = require('express');
+import { Router } from 'express';
+import { getAllBackups, addBackup } from '../controllers/backup.js';
 
-const router = express.Router();
+const router = Router();
 
-const {
-  getAllBackups,
-  addBackup,
-} = require('../controllers/backup');
+router.get('/backup/', getAllBackups);
+router.post('/backup/', addBackup);
 
-router.get('/', getAllBackups);
-router.post('/add', addBackup);
-
-module.exports = router;
+export default router;
