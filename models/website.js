@@ -1,34 +1,43 @@
 import mongoose from 'mongoose';
 
 const websiteSchema = mongoose.Schema({
+  managerId: {
+    type: Number,
+    require: true,
+  },
   title: {
     type: String,
-    require: false,
+    require: true,
   },
   description: {
     type: String,
-    require: false,
+    require: true,
   },
   domain: {
     type: Array,
-    require: false,
+    require: true,
   },
   typeOfDomain: {
     type: String,
-    require: false,
+    require: true,
   },
   cpu: {
     type: String,
-    require: false,
+    require: true,
   },
   memory: {
     type: Number,
-    require: false,
+    require: true,
   },
   status: {
     type: Number,
-    require: false,
+    require: true,
   },
+  websiteLogo: {
+    type: String,
+    require: true,
+  },
+
 });
 
 export default mongoose.model('Website', websiteSchema);
