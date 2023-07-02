@@ -1,5 +1,6 @@
 import amqp from 'amqplib';
-import backupSite from '../service.js';
+import backupSite from '../services/backup.js';
+import startStopWebsites from '../services/website.js';
 import logger from '../logger.js';
 
 export const handleData = async (data) => {
@@ -8,8 +9,12 @@ export const handleData = async (data) => {
   case 'backupSite':
     backupSite(data);
     break;
+  case 'startStopWebsites':
+    startStopWebsites(data.data);
+    break;
   default:
     logger.info(`Function ${action} not found.`);
+    logger.info(`Function ${data} not found.`);
   }
 };
 

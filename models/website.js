@@ -25,10 +25,13 @@ const websiteSchema = mongoose.Schema({
     type: Number,
     require: false,
   },
-  status: {
-    type: Number,
-    require: false,
-  },
+  status:
+{
+  type: String,
+  enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
+  require: true,
+},
+
 });
 
 export default mongoose.model('Website', websiteSchema);
