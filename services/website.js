@@ -5,7 +5,6 @@ const startStopWebsite = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
     if (website.status === 'About to be inactive') {
-      console.log('enter to if');
       website.status = 'Inactive';
       await website.save();
       logger.info(`seccuss change status to ${website.status}`);
