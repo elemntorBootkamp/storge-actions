@@ -26,8 +26,9 @@ const websiteSchema = mongoose.Schema({
     require: false,
   },
   status: {
-    type: Number,
-    require: false,
+    type: String,
+    enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
+    require: true,
   },
 });
 
