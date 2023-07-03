@@ -1,5 +1,6 @@
 import amqp from 'amqplib';
-import { backupSite, deleteWebsit } from '../services/service.js';
+import backupSite from '../services/backup.js';
+import deleteWebsit from '../services/website.js';
 import logger from '../logger.js';
 
 export const handleData = async (data) => {
