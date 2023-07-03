@@ -1,3 +1,4 @@
+import logger from '../logger.js';
 import Website from '../models/website.js';
 // import startStopWebsites from '../services/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
@@ -44,6 +45,7 @@ export const startStopWebsite = async (req, res) => {
 */
   const websiteId = req.params.id;
   try {
+    logger.info(websiteId);
     const website = await Website.findById(websiteId);
     if (website.status === 'Active') {
       website.status = 'About to be inactive';
@@ -62,3 +64,5 @@ export const startStopWebsite = async (req, res) => {
     return res.status(500).send(error);
   }
 };
+
+export const tryTest = async () => true;

@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "@jest/globals": "^29.5.0",
     "amqplib": "^0.10.3",
     "assert": "^2.0.0",
     "axios": "^1.4.0",
@@ -26,6 +27,8 @@
     "winston": "^3.9.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.5",
+    "babel-jest": "^29.5.0",
     "chai": "^4.3.7",
     "eslint": "^8.42.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -42,12 +45,17 @@
   },
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest --coverage",
+    "test": "jest",
     "lint": "eslint .",
     "prepare": "husky install",
     "precommit": "npm run lint",
     "e2e": "jest",
     "prettier": "prettier --write \"**/*.js\""
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
   },
   "repository": {
     "type": "git",
