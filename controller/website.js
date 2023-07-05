@@ -1,7 +1,8 @@
-import logger from '../logger.js';
+// import logger from '../logger.js';
 import Website from '../models/website.js';
+import { startStopWebsitePart1 } from '../services/website.js';
 // import startStopWebsites from '../services/website.js';
-import sendToRabbitMQ from '../rabbitMQ/send_message.js';
+// import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
 export const getAllWebsites = (req, res) => {
 /*
@@ -43,25 +44,21 @@ export const startStopWebsite = async (req, res) => {
    schema: { $ref: "#/definitions/startStopWebsite" }
  }
 */
-  const websiteId = req.params.id;
   try {
-    logger.info(websiteId);
-    const website = await Website.findById(websiteId);
-    if (website.status === 'Active') {
-      website.status = 'About to be inactive';
-      await website.save();
-      sendToRabbitMQ(websiteId, 'startStopWebsites');
-      return res.status(200).send(website);
+    const websiteId = req.params.id;
+    const result = await startStopWebsitePart1(websiteId);
+    if (result.error) {
+      if (result.error === 'Internal several error') {
+        res.status(500).send({ message: result.error });
+      } if (result.error === 'Website doesn\'t found') {
+        res.status(404).send({ message: result.error });
+      } else {
+        res.status(400).send({ message: result.error });
+      }
     }
-    if (website.status === 'Inactive') {
-      website.status = 'About to be active';
-      await website.save();
-      sendToRabbitMQ(websiteId, 'startStopWebsites');
-      return res.status(200).send(website);
-    }
-    return res.status(400).json({ message: `This website is already ${website.status}` });
+    res.status(200).send({ result });
   } catch (error) {
-    return res.status(500).send(error);
+    res.status(500).send({ message: error.message });
   }
 };
 
