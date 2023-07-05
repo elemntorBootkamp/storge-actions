@@ -50,7 +50,7 @@ export const startStopWebsite = async (req, res) => {
     if (result.error) {
       if (result.error === 'Internal several error') {
         res.status(500).send({ message: result.error });
-      } if (result.error === 'Website doesn\'t found') {
+      } if (result.error === 'Website doesnt found') {
         res.status(404).send({ message: result.error });
       } else {
         res.status(400).send({ message: result.error });
