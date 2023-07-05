@@ -29,7 +29,7 @@
   ],
   "paths": {
     "/Website/": {
-      "get": {
+    "get": {
         "tags": [
           "Website"
         ],
@@ -84,7 +84,9 @@
             "in": "body",
             "required": true,
             "schema": {
+
               "$ref": "#/definitions/createWebsite"
+
             }
           }
         ],
@@ -92,11 +94,14 @@
           "200": {
             "description": "OK"
           },
+
           "400": {
             "description": "Bad Request"
           },
           "412": {
             "description": "Precondition Failed"
+            "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -181,8 +186,8 @@
           "example": 16
         },
         "status": {
-          "type": "number",
-          "example": 1
+          "type": "string",
+          "example": "Active"
         },
         "websiteLogo": {
           "type": "string",

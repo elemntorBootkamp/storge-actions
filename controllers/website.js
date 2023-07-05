@@ -2,12 +2,14 @@ import Website from '../models/website.js';
 
 export const getAllWebsites = (req, res) => {
   /*
+
   #swagger.tags=['Website']
   */
   Website.find()
     .then((websites) => { res.status(200).send({ websites }); })
     .catch((error) => { res.status(404).send({ message: error.message }); });
 };
+
 export const getWebsiteById = async (req, res) => {
 /*
   #swagger.tags=['Website']
@@ -41,5 +43,6 @@ export const createWebsite = async (req, res) => {
     res.status(201).json(website1);
   } catch (error) {
     res.status(409).json({ message: error.message });
+
   }
 };
