@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
 import backupSite from '../services/backup.js';
-import startStopWebsitePart2 from '../services/website.js';
+import { startStopWebsitePart2 } from '../services/website.js';
 import logger from '../logger.js';
 
 export const handleData = async (data) => {
