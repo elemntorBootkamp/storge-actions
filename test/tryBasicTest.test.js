@@ -1,13 +1,9 @@
-import expect from 'chai';
-import { describe, it } from 'jest';
-import myFunction from '../controllers/website.js';
-
-const rt = myFunction.tryTest;
+import { describe, it, expect } from '@jest/globals';
+import { tryTest } from '../controllers/website.js';
 
 describe('rt', () => {
-  it('should return true', () => {
-    const result = rt();
-    // eslint-disable-next-line no-unused-expressions
-    expect(result).to.be.true;
+  it('should return true', async () => {
+    const result = await tryTest();
+    expect(result).toBe(true);
   });
 });

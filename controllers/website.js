@@ -1,6 +1,6 @@
 import Website from '../models/website.js';
 import logger from '../logger.js';
-import sendToRabbitMQ from '../rabbitMQ/send_message.js';
+import { goingDeleteWebsite } from '../services/website.js';
 
 export const getAllWebsites = (req, res) => {
   /*
@@ -43,17 +43,15 @@ export const deleteWebsit = async (req, res) => {
   const webId = req.params.id;
   logger.info(webId);
   try {
-    const website = await Website.findById(webId);
-    if (website.status !== 'Deleted') {
-      website.status = 'About to be deleted';
-      await website.save();
-      sendToRabbitMQ(webId, 'deleteWebsit');
-      return res.status(200).send(website);
-    }
-    if (!website) return res.status(404).json({ message: `Website with id ${webId} not found` });
-    return res.status(400).send({ message: 'This website is already deleted' });
+    const result = await goingDeleteWebsite(webId);
+    if (result.error) {
+      if (result.error === `Website with id ${webId} not found`) res.status(404).send({ message: result.error });
+      else if (result.error === 'This website is already Deleted') res.status(400).send({ message: result.error });
+      else res.status(500).send({ message: result.error });
+    } else res.status(200).send(result);
   } catch (error) {
-    logger.error(error);
-    return res.status(500).json(error.message);
+    logger.error('500');
+    res.status(500).send({ message: error.message });
   }
 };
+export const tryTest = async () => true;
