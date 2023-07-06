@@ -1,5 +1,6 @@
 import amqp from 'amqplib';
 import backupSite from '../services/backup.js';
+import { startStopWebsitePart2 } from '../services/website.js';
 import { deleteWebsite } from '../services/website.js';
 import logger from '../logger.js';
 
@@ -9,11 +10,14 @@ export const handleData = async (data) => {
   case 'backupSite':
     backupSite(data);
     break;
+  case 'startStopWebsitePart2':
+    startStopWebsitePart2(data.data);
   case 'deleteWebsit':
     deleteWebsite(data.data);
     break;
   default:
     logger.info(`Function ${action} not found.`);
+    logger.info(`Function ${data} not found.`);
   }
 };
 
