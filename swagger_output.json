@@ -71,6 +71,8 @@
     },
     "/website/startStopWebsite/{id}": {
       "put": {
+    "/website/{id}": {
+      "delete": {
         "tags": [
           "Website"
         ],
@@ -83,6 +85,7 @@
             "type": "string",
             "schema": {
               "$ref": "#/definitions/startStopWebsite"
+              "$ref": "#/definitions/deleteWebsite"
             }
           }
         ],
@@ -196,8 +199,8 @@
           "example": 673
         },
         "status": {
-          "type": "number",
-          "example": 10
+          "type": "string",
+          "example": "Active"
         }
       }
     },
@@ -234,8 +237,8 @@
           "example": 673
         },
         "status": {
-          "type": "number",
-          "example": 10
+          "type": "string",
+          "example": "Active"
         }
       },
       "required": [
@@ -249,6 +252,7 @@
       ]
     },
     "startStopWebsite": {
+    "deleteWebsite": {
       "type": "object",
       "properties": {
         "_id": {

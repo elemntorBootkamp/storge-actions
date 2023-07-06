@@ -1,8 +1,6 @@
 // import logger from '../logger.js';
 import Website from '../models/website.js';
-import { startStopWebsitePart1 } from '../services/website.js';
-// import startStopWebsites from '../services/website.js';
-// import sendToRabbitMQ from '../rabbitMQ/send_message.js';
+import { startStopWebsitePart1, goingDeleteWebsite } from '../services/website.js';
 
 export const getAllWebsites = (req, res) => {
 /*
@@ -33,8 +31,9 @@ export const addWebsite = async (req, res) => {
     res.status(404).send(err);
   }
 };
+
 export const startStopWebsite = async (req, res) => {
-/*
+  /*
 #swagger.tags=['Website']
 */
   /*
@@ -58,6 +57,33 @@ export const startStopWebsite = async (req, res) => {
     }
     res.status(200).send({ result });
   } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+
+  export const deleteWebsit = async (req, res) => {
+     /*
+#swagger.tags=['Website']
+*/
+  /*
+#swagger.parameters['id'] = {
+         in: 'path',
+              required: true,
+          schema: { $ref: "#/definitions/deleteWebsite" }
+      }
+  */
+  const webId = req.params.id;
+  logger.info(webId);
+  try {
+    const result = await goingDeleteWebsite(webId);
+    if (result.error) {
+      if (result.error === `Website with id ${webId} not found`) res.status(404).send({ message: result.error });
+      else if (result.error === 'This website is already Deleted') res.status(400).send({ message: result.error });
+      else res.status(500).send({ message: result.error });
+    } else res.status(200).send(result);
+  } catch (error) {
+    logger.error('500');
     res.status(500).send({ message: error.message });
   }
 };
