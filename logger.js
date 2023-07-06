@@ -30,13 +30,4 @@ const logger = winston.createLogger({
   ],
 });
 logger.info('Starting the application...');
-const users = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Doe' },
-  { id: 3, name: 'Bob Smith' },
-];
-logger.info(`Found ${users.length} users`);
-logger.warn('This is a warning message');
-logger.warn(chalk.yellow('This is another warning message'));
 export default logger;
-

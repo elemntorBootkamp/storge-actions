@@ -4,5 +4,5 @@ import { getAllWebsites, createWebsite, getWebsiteById } from '../controllers/we
 const router = express.Router();
 router.get('/Website/', getAllWebsites);
 router.get('/Website/:id', getWebsiteById);
-router.post('/Website/create', createWebsite);
+router.post('/Website/', createWebsite);
 export default router;

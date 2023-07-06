@@ -32,11 +32,11 @@
     "winston": "^3.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.5",
-    "@babel/core": "^7.22.5",
-    "@babel/preset-env": "^7.22.5",
+    "@babel/cli": "^7.22.6",
+    "@babel/core": "^7.22.6",
+    "@babel/preset-env": "^7.22.6",
     "@jest/globals": "^29.5.0",
-    "babel-jest": "^29.5.0",
+    "babel-jest": "^29.6.0",
     "chai": "^4.3.7",
     "eslint": "^8.42.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -50,6 +50,7 @@
     "pino-pretty": "^10.0.0",
     "prettier": "^2.8.8",
     "swagger-ui-express": "^4.6.3",
+    "ts-jest": "^29.1.1",
     "ws": "3.3.2"
   },
   "scripts": {
@@ -63,7 +64,7 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.[t|j]sx?$": "babel-jest"
     }
   },
   "repository": {
