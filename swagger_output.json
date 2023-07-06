@@ -71,6 +71,37 @@
     },
     "/website/startStopWebsite/{id}": {
       "put": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/startStopWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/website/{id}": {
       "delete": {
         "tags": [
@@ -84,7 +115,6 @@
             "required": true,
             "type": "string",
             "schema": {
-              "$ref": "#/definitions/startStopWebsite"
               "$ref": "#/definitions/deleteWebsite"
             }
           }
@@ -251,8 +281,19 @@
         "status"
       ]
     },
-    "startStopWebsite": {
     "deleteWebsite": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "6476fafd31fe80568d17ccb5"
+        }
+      },
+      "required": [
+        "_id"
+      ]
+    },
+    "startStopWebsite": {
       "type": "object",
       "properties": {
         "_id": {

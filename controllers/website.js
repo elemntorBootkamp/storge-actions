@@ -1,4 +1,4 @@
-// import logger from '../logger.js';
+import logger from '../logger.js';
 import Website from '../models/website.js';
 import { startStopWebsitePart1, goingDeleteWebsite } from '../services/website.js';
 
@@ -60,13 +60,9 @@ export const startStopWebsite = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
-
-
-  export const deleteWebsit = async (req, res) => {
-     /*
+export const deleteWebsit = async (req, res) => {
+/*
 #swagger.tags=['Website']
-*/
-  /*
 #swagger.parameters['id'] = {
          in: 'path',
               required: true,
