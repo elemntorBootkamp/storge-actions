@@ -1,6 +1,6 @@
-import Website from './models/website.js';
-import Backup from './models/backup.js';
-import logger from './logger.js';
+import Website from '../models/website.js';
+import Backup from '../models/backup.js';
+import logger from '../logger.js';
 
 const backupSite = async (data) => {
   const website = data.data;
