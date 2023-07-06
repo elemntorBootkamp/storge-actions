@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const backupSchema = mongoose.Schema({
   backupId: mongoose.Schema.Types.ObjectId,
   siteId: {
-    type: Number,
+    type: String,
     require: true,
   },
   description: {

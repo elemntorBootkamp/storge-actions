@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import { getAllWebsites, createWebsite, getWebsiteById } from '../controllers/website.js';
 
-const router = express.Router();
+const router = Router();
 router.get('/Website/', getAllWebsites);
 router.get('/Website/:id', getWebsiteById);
 router.post('/Website/', createWebsite);
