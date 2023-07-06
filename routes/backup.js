@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllBackups, addBackup, backupSite } from '../controller/backup.js';
+import { getAllBackups, addBackup, backupSite } from '../controllers/backup.js';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { tryTest } from '../controller/website.js';
+import { tryTest } from '../controllers/website.js';
 
 describe('rt', () => {
   it('should return true', async () => {
