@@ -38,7 +38,9 @@ export const startStopWebsitePart1 = async (websiteId) => {
     return { error: `This website is already ${website.status}` };
   } catch (error) {
     return { error: 'Internal several error' };
-    
+  }
+};
+
 export const goingDeleteWebsite = async (id) => {
   try {
     const website = await Website.findById(id);
