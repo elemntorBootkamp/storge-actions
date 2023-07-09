@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { validateDomain, onlyEnglishLetters } from '../services/validate.js';
 
-
 const websiteSchema = mongoose.Schema({
   managerId: {
     type: String,

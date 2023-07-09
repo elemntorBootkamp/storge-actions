@@ -28,7 +28,6 @@ export const addBackup = async (req, res) => {
   } catch (err) {
     res.status(404).send(err);
   }
-
 };
 export const backupSite = async (req, res) => {
   const website = await Website.findById(req.params.id).exec();
