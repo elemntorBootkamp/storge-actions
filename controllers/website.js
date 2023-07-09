@@ -7,9 +7,8 @@ export const getAllWebsites = (req, res) => {
   #swagger.tags=['Website']
   */
   Website.find()
-    .then((websites) => {
-      res.status(200).send({ websites });
-    })
+    .then((websites) => { res.status(200).send(websites); })
+
     .catch((error) => { res.status(404).send({ message: error.message }); });
 };
 export const addWebsite = async (req, res) => {
