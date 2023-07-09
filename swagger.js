@@ -33,7 +33,7 @@ const doc = {
       typeOfDomain: 'school',
       cpu: 'intel core i7',
       memory: 673,
-      status: 10,
+      status: 'Active',
     },
     addWebsite: {
       $title: 'fdghjk,',
@@ -42,7 +42,13 @@ const doc = {
       $typeOfDomain: 'school',
       $cpu: 'intel core i7',
       $memory: 673,
-      $status: 10,
+      $status: 'Active',
+    },
+    deleteWebsite: {
+      $_id: '6476fafd31fe80568d17ccb5',
+    },
+    startStopWebsite: {
+      $_id: '6476fafd31fe80568d17ccb5',
     },
     Backup: {
       siteId: 1,

@@ -69,6 +69,72 @@
         }
       }
     },
+    "/website/startStopWebsite/{id}": {
+      "put": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/startStopWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/website/{id}": {
+      "delete": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/deleteWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/backup/": {
       "get": {
         "tags": [
@@ -109,6 +175,24 @@
           }
         }
       }
+    },
+    "/backup/{id}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -145,8 +229,8 @@
           "example": 673
         },
         "status": {
-          "type": "number",
-          "example": 10
+          "type": "string",
+          "example": "Active"
         }
       }
     },
@@ -183,8 +267,8 @@
           "example": 673
         },
         "status": {
-          "type": "number",
-          "example": 10
+          "type": "string",
+          "example": "Active"
         }
       },
       "required": [
@@ -195,6 +279,30 @@
         "cpu",
         "memory",
         "status"
+      ]
+    },
+    "deleteWebsite": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "6476fafd31fe80568d17ccb5"
+        }
+      },
+      "required": [
+        "_id"
+      ]
+    },
+    "startStopWebsite": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "6476fafd31fe80568d17ccb5"
+        }
+      },
+      "required": [
+        "_id"
       ]
     },
     "Backup": {
