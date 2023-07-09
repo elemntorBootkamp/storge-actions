@@ -47,6 +47,9 @@ const doc = {
     deleteWebsite: {
       $_id: '6476fafd31fe80568d17ccb5',
     },
+    startStopWebsite: {
+      $_id: '6476fafd31fe80568d17ccb5',
+    },
     Backup: {
       siteId: 1,
       description: 'fghj',
