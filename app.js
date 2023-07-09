@@ -11,9 +11,6 @@ import { startConsumer } from './rabbitMQ/ReceivingMessage.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
-// const axios = require('axios');
-// const pinoHTTP = require('pino-http');
-
 mongoose.set('strictQuery', true);
 
 const app = express();

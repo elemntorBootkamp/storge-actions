@@ -6,8 +6,7 @@ dotenv.config();
 export default (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    logger.info(token);
-    if (token !== 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c') {
+    if (token !== process.env.TOKEN) {
       logger.info('Invalid token');
       throw new Error('Invalid token');
     } else {
