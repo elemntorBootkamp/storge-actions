@@ -3,7 +3,6 @@ import { createWeb, getWebById } from '../services/website.js';
 
 export const getAllWebsites = (req, res) => {
   /*
-
   #swagger.tags=['Website']
   */
   Website.find()
