@@ -31,6 +31,23 @@ const websiteSchema = mongoose.Schema({
   enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
   require: true,
 },
+  owner:
+  {
+    type: String,
+    require: false,
+  },
+  createdAt:
+  {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
+  updatedAt:
+  {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
 });
 
 export default mongoose.model('Website', websiteSchema);
