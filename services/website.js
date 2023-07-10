@@ -3,8 +3,10 @@ import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
 export const getAll = async () => {
   try {
-    const websites = await Website.find();
-    if (!websites) return { error: 'There are no websites' };
+    const websites = await Website.find({ status: 'Active' });
+    if (!websites || websites.length === 0) {
+      return { error: 'There are no active websites' };
+    }
     return websites;
   } catch (err) {
     return { error: err.message };

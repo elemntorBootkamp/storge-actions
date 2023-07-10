@@ -9,7 +9,7 @@ export const getAllWebsites = async (req, res) => {
   try {
     const result = await getAll();
     if (result.error) {
-      if (result.error === 'There are no websites') res.status(404).send({ message: result.error });
+      if (result.error === 'There are no active websites') res.status(404).send({ message: result.error });
       else res.status(500).send({ message: result.error });
     } else res.status(200).send(result);
   } catch (err) {
