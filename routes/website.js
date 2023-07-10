@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import {
-  getAllWebsites, addWebsite, startStopWebsite, deleteWebsit,
-} from '../controllers/website.js';
+import auth from '../middleware/authorization.js';
+import { getAllWebsites, addWebsite, deleteWebsit, startStopWebsite, } from '../controllers/website.js';
 
 const router = Router();
 
-router.get('/website/', getAllWebsites);
-router.post('/website/', addWebsite);
+router.get('/website/', auth, getAllWebsites);
+router.post('/website/', auth, addWebsite);
+router.delete('/website/:id', auth, deleteWebsit);
 router.put('/website/startStopWebsite/:id', startStopWebsite);
-router.delete('/website/:id', deleteWebsit);
 
 export default router;

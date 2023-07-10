@@ -1,6 +1,20 @@
 import logger from '../logger.js';
 import Website from '../models/website.js';
-import { startStopWebsitePart1, goingDeleteWebsite } from '../services/website.js';
+import { startStopWebsitePart1, goingDeleteWebsite, getAll } from '../services/website.js';
+  
+export const getAllWebsites = async (req, res) => {
+  /*
+ #swagger.tags=['Website']
+ */
+  try {
+    const result = await getAll();
+    if (result.error) {
+      if (result.error === 'There are no websites') res.status(404).send({ message: result.error });
+      else res.status(500).send({ message: result.error });
+    } else res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 
 export const getAllWebsites = (req, res) => {
 /*
@@ -11,6 +25,7 @@ export const getAllWebsites = (req, res) => {
 
     .catch((error) => { res.status(404).send({ message: error.message }); });
 };
+
 export const addWebsite = async (req, res) => {
   /*
   #swagger.tags=['Website']

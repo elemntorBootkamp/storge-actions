@@ -1,6 +1,16 @@
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
+export const getAll = async () => {
+  try {
+    const websites = await Website.find();
+    if (!websites) return { message: 'There are no websites' };
+    return websites;
+  } catch (err) {
+    return { error: err.message };
+  }
+};
+
 export const startStopWebsitePart2 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
