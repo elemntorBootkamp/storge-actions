@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -19,7 +20,7 @@ const app = express();
 
 dotenv.config();
 
-const port = process.env.PORT;
+// const port = process.env.PORT;
 
 app.use(bodyPasrer.json());
 
@@ -39,10 +40,11 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
 app.use(websiteRoutes);
 app.use(backupRoutes);
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/doc', websiteRoutes);
 
-app.listen(port, () => {
-  logger.info(`my app is listening on http://localhost:${port}`);
+app.listen(8092, () => {
+  logger.info('my app is listening on http://localhost:8092');
 });
 
 export default app;
