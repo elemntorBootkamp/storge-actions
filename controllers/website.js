@@ -1,7 +1,7 @@
 import logger from '../logger.js';
 import Website from '../models/website.js';
 import { startStopWebsitePart1, goingDeleteWebsite, getAll } from '../services/website.js';
-  
+
 export const getAllWebsites = async (req, res) => {
   /*
  #swagger.tags=['Website']
@@ -15,16 +15,6 @@ export const getAllWebsites = async (req, res) => {
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
-
-export const getAllWebsites = (req, res) => {
-/*
-  #swagger.tags=['Website']
-  */
-  Website.find()
-    .then((websites) => {
-      res.status(200).send({ websites });
-    })
-    .catch((error) => { res.status(404).send({ message: error.message }); });
 };
 
 export const addWebsite = async (req, res) => {
@@ -75,6 +65,7 @@ export const startStopWebsite = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
 export const deleteWebsit = async (req, res) => {
 /*
 #swagger.tags=['Website']

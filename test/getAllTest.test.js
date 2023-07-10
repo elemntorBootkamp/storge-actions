@@ -5,7 +5,6 @@ describe('getAll', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
   it('should return all websites', async () => {
     const websites = [
       { id: '1', name: 'Website 1' },
