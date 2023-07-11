@@ -263,14 +263,6 @@
         "owner": {
           "type": "string",
           "example": "Rivka"
-        },
-        "createdAt": {
-          "type": "string",
-          "example": "2023-07-10T14:01:48.756Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "2023-07-10T14:01:48.756Z"
         }
       }
     },
@@ -313,14 +305,6 @@
         "owner": {
           "type": "string",
           "example": "Rivka"
-        },
-        "createdAt": {
-          "type": "string",
-          "example": "2023-07-10T14:01:48.756Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "2023-07-10T14:01:48.756Z"
         }
       },
       "required": [
@@ -331,8 +315,7 @@
         "cpu",
         "memory",
         "status",
-        "owner",
-        "updatedAt"
+        "owner"
       ]
     },
     "deleteWebsite": {

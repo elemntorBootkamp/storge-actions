@@ -35,8 +35,6 @@ const doc = {
       memory: 673,
       status: 'Active',
       owner: 'Rivka',
-      createdAt: '2023-07-10T14:01:48.756Z',
-      updatedAt: '2023-07-10T14:01:48.756Z',
     },
     addWebsite: {
       $title: 'fdghjk,',
@@ -47,8 +45,6 @@ const doc = {
       $memory: 673,
       $status: 'Active',
       $owner: 'Rivka',
-      createdAt: '2023-07-10T14:01:48.756Z',
-      $updatedAt: '2023-07-10T14:01:48.756Z',
     },
     deleteWebsite: {
       $_id: '6476fafd31fe80568d17ccb5',
