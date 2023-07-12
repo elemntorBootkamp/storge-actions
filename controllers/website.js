@@ -10,7 +10,7 @@ export const getAllWebsites = async (req, res) => {
     const result = await getAll();
     if (result.error) {
       if (result.error === 'There are no active websites') res.status(404).send({ message: result.error });
-      else res.status(500).send({ message: result.error });
+      else res.status(500).send({ error: result.error });
     } else res.status(200).send(result);
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -53,11 +53,11 @@ export const startStopWebsite = async (req, res) => {
     const result = await startStopWebsitePart1(websiteId);
     if (result.error) {
       if (result.error === 'Internal several error') {
-        res.status(500).send({ message: result.error });
+        res.status(500).send({ error: result.error });
       } if (result.error === 'Website doesnt found') {
-        res.status(404).send({ message: result.error });
+        res.status(404).send({ error: result.error });
       } else {
-        res.status(400).send({ message: result.error });
+        res.status(400).send({ error: result.error });
       }
     }
     res.status(200).send({ result });
@@ -82,11 +82,11 @@ export const deleteWebsit = async (req, res) => {
     if (result.error) {
       if (result.error === `Website with id ${webId} not found`) res.status(404).send({ message: result.error });
       else if (result.error === 'This website is already Deleted') res.status(400).send({ message: result.error });
-      else res.status(500).send({ message: result.error });
+      else res.status(500).send({ error: result.error });
     } else res.status(200).send(result);
   } catch (error) {
     logger.error('500');
-    res.status(500).send({ message: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
 
