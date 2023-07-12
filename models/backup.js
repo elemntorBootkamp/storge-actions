@@ -12,4 +12,23 @@ const backupSchema = mongoose.Schema({
   },
 });
 
+const Backup = mongoose.model('Backup', backupSchema);
+
+const backups = [
+  { siteId: 1, description: 'Backup 1' },
+  { siteId: 2, description: 'Backup 2' },
+  { siteId: 3, description: 'Backup 3' },
+];
+
+// Insert the backup documents into the "storage-action" collection
+Backup.insertMany(backups)
+  .then(() => {
+    console.log('Backup documents inserted successfully');
+    mongoose.disconnect();
+  })
+  .catch((error) => {
+    console.error('Error inserting backup documents:', error);
+    mongoose.disconnect();
+  });
+
 export default mongoose.model('Backup', backupSchema);
