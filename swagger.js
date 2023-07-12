@@ -34,6 +34,7 @@ const doc = {
       cpu: 'intel core i7',
       memory: 673,
       status: 'Active',
+      owner: 'Rivka',
     },
     addWebsite: {
       $title: 'fdghjk,',
@@ -43,6 +44,7 @@ const doc = {
       $cpu: 'intel core i7',
       $memory: 673,
       $status: 'Active',
+      $owner: 'Rivka',
     },
     deleteWebsite: {
       $_id: '6476fafd31fe80568d17ccb5',
