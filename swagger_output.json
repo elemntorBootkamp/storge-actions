@@ -28,8 +28,8 @@
     "application/json"
   ],
   "paths": {
-    "/Website/": {
-    "get": {
+    "/website/": {
+      "get": {
         "tags": [
           "Website"
         ],
@@ -65,18 +65,18 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "website",
-            "in": "body",
+            "name": "id",
+            "in": "path",
             "required": true,
             "type": "string",
             "schema": {
               "$ref": "#/definitions/getWebsiteById"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -92,13 +92,18 @@
         }
       }
     },
-    "/Website/create": {
+    "/Website/": {
       "post": {
         "tags": [
           "Website"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "website",
             "in": "body",
@@ -109,24 +114,19 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "409": {
-            "description": "Conflict"
+          "200": {
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"
           },
-          "412": {
-            "description": "Precondition Failed"},
-            "404": {
-            "description": "Not Found"
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
     },
-     "/website/{id}": {
+    "/website/{id}": {
       "delete": {
         "tags": [
           "Website"
@@ -182,6 +182,11 @@
             "schema": {
               "$ref": "#/definitions/startStopWebsite"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -190,6 +195,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -304,6 +312,7 @@
         "websiteLogo": {
           "type": "string",
           "example": "aaa.png"
+        },
         "owner": {
           "type": "string",
           "example": "Rivka"
@@ -347,8 +356,8 @@
           "example": 16
         },
         "status": {
-         "type": "string",
-         "example": "Active"
+          "type": "string",
+          "example": "Active"
         },
         "websiteLogo": {
           "type": "string",
@@ -369,10 +378,22 @@
         "memory",
         "status",
         "websiteLogo",
-         "owner"
+        "owner"
       ]
     },
     "getWebsiteById": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "648983899e38afa07db32c65"
+        }
+      },
+      "required": [
+        "_id"
+      ]
+    },
+    "startStopWebsite": {
       "type": "object",
       "properties": {
         "_id": {
@@ -389,19 +410,7 @@
       "properties": {
         "_id": {
           "type": "string",
-          "example": "6476fafd31fe80568d17ccb5"
-        }
-      },
-      "required": [
-        "_id"
-      ]
-    },
-    "startStopWebsite": {
-      "type": "object",
-      "properties": {
-        "_id": {
-          "type": "string",
-          "example": "6476fafd31fe80568d17ccb5"
+          "example": "648983899e38afa07db32c65"
         }
       },
       "required": [
