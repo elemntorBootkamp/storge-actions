@@ -1,8 +1,8 @@
 import logger from '../logger.js';
-import Website from '../models/website.js';
 import {
-  startStopWebsitePart1, goingDeleteWebsite, createWeb, getWebById,
+  startStopWebsitePart1, goingDeleteWebsite, createWeb, getWebById, getAll,
 } from '../services/website.js';
+
 export const getAllWebsites = async (req, res) => {
   /*
  #swagger.tags=['Website']
@@ -67,13 +67,12 @@ export const startStopWebsite = async (req, res) => {
     if (result.error) {
       if (result.error === 'Internal several error') {
         res.status(500).send({ error: result.error });
-      } if (result.error === 'Website doesnt found') {
+      } else if (result.error === 'Website doesnt found') {
         res.status(404).send({ error: result.error });
       } else {
         res.status(400).send({ error: result.error });
       }
-    }
-    res.status(200).send({ result });
+    } else res.status(200).send({ result });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

@@ -6,9 +6,9 @@ import {
 
 const router = Router();
 
-router.get('/website/', getAllWebsites);
-router.get('/Website/:id', getWebsiteById);
-router.post('/Website/', createWebsite);
+router.get('/website/', auth, getAllWebsites);
+router.get('/Website/:id', auth, getWebsiteById);
+router.post('/Website/', auth, createWebsite);
 router.delete('/website/:id', auth, deleteWebsit);
-router.put('/website/startStopWebsite/:id', startStopWebsite);
+router.put('/website/startStopWebsite/:id', auth, startStopWebsite);
 export default router;

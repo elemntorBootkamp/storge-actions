@@ -33,9 +33,9 @@ const doc = {
       typeOfDomain: 'com',
       cpu: 'Intel Core i7',
       memory: 16,
-      status:'Active',
+      status: 'Active',
       websiteLogo: 'aaa.png',
-      owner:'Rivka',
+      owner: 'Rivka',
     },
     createWebsite: {
       $managerId: '1234',
@@ -50,6 +50,12 @@ const doc = {
       $owner: 'Rivka',
     },
     getWebsiteById: {
+      $_id: '648983899e38afa07db32c65',
+    },
+    startStopWebsite: {
+      $_id: '648983899e38afa07db32c65',
+    },
+    deleteWebsite: {
       $_id: '648983899e38afa07db32c65',
     },
     Backup: {
