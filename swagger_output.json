@@ -9,11 +9,11 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "website",
+      "name": "Website",
       "description": "Endpoints"
     },
     {
-      "name": "backup",
+      "name": "Backup",
       "description": "Endpoints"
     }
   ],
@@ -28,8 +28,8 @@
     "application/json"
   ],
   "paths": {
-    "/website/": {
-      "get": {
+    "/Website/": {
+    "get": {
         "tags": [
           "Website"
         ],
@@ -55,8 +55,10 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "post": {
+      }
+    },
+    "/Website/{id}": {
+      "get": {
         "tags": [
           "Website"
         ],
@@ -71,8 +73,9 @@
             "name": "website",
             "in": "body",
             "required": true,
+            "type": "string",
             "schema": {
-              "$ref": "#/definitions/addWebsite"
+              "$ref": "#/definitions/getWebsiteById"
             }
           }
         ],
@@ -89,7 +92,41 @@
         }
       }
     },
-    "/website/{id}": {
+    "/Website/create": {
+      "post": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "website",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createWebsite"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "412": {
+            "description": "Precondition Failed"},
+            "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+     "/website/{id}": {
       "delete": {
         "tags": [
           "Website"
@@ -227,18 +264,22 @@
     "Website": {
       "type": "object",
       "properties": {
+        "managerId": {
+          "type": "string",
+          "example": "1234"
+        },
         "title": {
           "type": "string",
-          "example": "fdghjk"
+          "example": "My Website"
         },
         "description": {
           "type": "string",
-          "example": "fghj"
+          "example": "This is a description of my website"
         },
         "domain": {
           "type": "array",
           "example": [
-            "hkl"
+            "example.com"
           ],
           "items": {
             "type": "string"
@@ -246,41 +287,48 @@
         },
         "typeOfDomain": {
           "type": "string",
-          "example": "school"
+          "example": "com"
         },
         "cpu": {
           "type": "string",
-          "example": "intel core i7"
+          "example": "Intel Core i7"
         },
         "memory": {
           "type": "number",
-          "example": 673
+          "example": 16
         },
         "status": {
           "type": "string",
           "example": "Active"
         },
+        "websiteLogo": {
+          "type": "string",
+          "example": "aaa.png"
         "owner": {
           "type": "string",
           "example": "Rivka"
         }
       }
     },
-    "addWebsite": {
+    "createWebsite": {
       "type": "object",
       "properties": {
+        "managerId": {
+          "type": "string",
+          "example": "1234"
+        },
         "title": {
           "type": "string",
-          "example": "fdghjk,"
+          "example": "My Website"
         },
         "description": {
           "type": "string",
-          "example": "fghj"
+          "example": "This is a description of my website"
         },
         "domain": {
           "type": "array",
           "example": [
-            "hkl"
+            "example.com"
           ],
           "items": {
             "type": "string"
@@ -288,19 +336,23 @@
         },
         "typeOfDomain": {
           "type": "string",
-          "example": "school"
+          "example": "com"
         },
         "cpu": {
           "type": "string",
-          "example": "intel core i7"
+          "example": "Intel Core i7"
         },
         "memory": {
           "type": "number",
-          "example": 673
+          "example": 16
         },
         "status": {
+         "type": "string",
+         "example": "Active"
+        },
+        "websiteLogo": {
           "type": "string",
-          "example": "Active"
+          "example": "aaa.png"
         },
         "owner": {
           "type": "string",
@@ -308,6 +360,7 @@
         }
       },
       "required": [
+        "managerId",
         "title",
         "description",
         "domain",
@@ -315,7 +368,20 @@
         "cpu",
         "memory",
         "status",
-        "owner"
+        "websiteLogo",
+         "owner"
+      ]
+    },
+    "getWebsiteById": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "648983899e38afa07db32c65"
+        }
+      },
+      "required": [
+        "_id"
       ]
     },
     "deleteWebsite": {

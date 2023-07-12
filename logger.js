@@ -31,4 +31,3 @@ const logger = winston.createLogger({
 });
 logger.info('Starting the application...');
 export default logger;
-

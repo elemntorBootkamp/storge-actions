@@ -3,7 +3,6 @@ import logger from './logger.js';
 
 const outputFile = './swagger_output.json';
 const routesFiles = ['./routes/website.js', './routes/backup.js'];
-
 const doc = {
   info: {
     version: '1.0.0',
@@ -17,40 +16,41 @@ const doc = {
   produces: ['application/json'],
   tags: [
     {
-      name: 'website',
+      name: 'Website',
       description: 'Endpoints',
     },
     {
-      name: 'backup',
+      name: 'Backup',
       description: 'Endpoints',
     },
   ],
   definitions: {
     Website: {
-      title: 'fdghjk',
-      description: 'fghj',
-      domain: ['hkl'],
-      typeOfDomain: 'school',
-      cpu: 'intel core i7',
-      memory: 673,
-      status: 'Active',
-      owner: 'Rivka',
+      managerId: '1234',
+      title: 'My Website',
+      description: 'This is a description of my website',
+      domain: ['example.com'],
+      typeOfDomain: 'com',
+      cpu: 'Intel Core i7',
+      memory: 16,
+      status:'Active',
+      websiteLogo: 'aaa.png',
+      owner:'Rivka',
     },
-    addWebsite: {
-      $title: 'fdghjk,',
-      $description: 'fghj',
-      $domain: ['hkl'],
-      $typeOfDomain: 'school',
-      $cpu: 'intel core i7',
-      $memory: 673,
+    createWebsite: {
+      $managerId: '1234',
+      $title: 'My Website',
+      $description: 'This is a description of my website',
+      $domain: ['example.com'],
+      $typeOfDomain: 'com',
+      $cpu: 'Intel Core i7',
+      $memory: 16,
       $status: 'Active',
+      $websiteLogo: 'aaa.png',
       $owner: 'Rivka',
     },
-    deleteWebsite: {
-      $_id: '6476fafd31fe80568d17ccb5',
-    },
-    startStopWebsite: {
-      $_id: '6476fafd31fe80568d17ccb5',
+    getWebsiteById: {
+      $_id: '648983899e38afa07db32c65',
     },
     Backup: {
       siteId: 1,

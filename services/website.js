@@ -1,6 +1,19 @@
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
+export const createWeb = async (data) => {
+  const website = new Website(data);
+  await website.save();
+  return { success: true, message: data };
+};
+export const getWebById = async (webid) => {
+  const website = await Website.findById(webid);
+  if (!website) {
+    throw new Error(`Website with id ${webid} not found`);
+  } else {
+    return website;
+  }
+};
 export const getAll = async () => {
   try {
     const websites = await Website.find({ status: 'Active' });
@@ -12,7 +25,6 @@ export const getAll = async () => {
     return { error: err.message };
   }
 };
-
 export const startStopWebsitePart2 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
@@ -30,7 +42,6 @@ export const startStopWebsitePart2 = async (websiteId) => {
     return { error: error.message };
   }
 };
-
 export const startStopWebsitePart1 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
@@ -52,7 +63,6 @@ export const startStopWebsitePart1 = async (websiteId) => {
     return { error: 'Internal several error' };
   }
 };
-
 export const goingDeleteWebsite = async (id) => {
   try {
     const website = await Website.findById(id);
