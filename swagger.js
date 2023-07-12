@@ -3,7 +3,6 @@ import logger from './logger.js';
 
 const outputFile = './swagger_output.json';
 const routesFiles = ['./routes/website.js', './routes/backup.js'];
-
 const doc = {
   info: {
     version: '1.0.0',
