@@ -23,12 +23,11 @@ const backups = [
 // Insert the backup documents into the "storage-action" collection
 Backup.insertMany(backups)
   .then(() => {
-    console.log('Backup documents inserted successfully');
     mongoose.disconnect();
   })
   .catch((error) => {
-    console.error('Error inserting backup documents:', error);
     mongoose.disconnect();
+    return error;
   });
 
 export default mongoose.model('Backup', backupSchema);
