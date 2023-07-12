@@ -34,13 +34,25 @@
           "Website"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -53,8 +65,13 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "website",
+            "in": "body",
             "required": true,
             "type": "string",
             "schema": {
@@ -65,6 +82,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -84,9 +104,7 @@
             "in": "body",
             "required": true,
             "schema": {
-
               "$ref": "#/definitions/createWebsite"
-
             }
           }
         ],
@@ -94,7 +112,6 @@
           "201": {
             "description": "Created"
           },
-
           "409": {
             "description": "Conflict"
           },
@@ -105,6 +122,47 @@
             "description": "Precondition Failed"},
             "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+     "/website/{id}": {
+      "delete": {
+        "tags": [
+          "Website"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/deleteWebsite"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -123,39 +181,6 @@
             "type": "string",
             "schema": {
               "$ref": "#/definitions/startStopWebsite"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/website/{id}": {
-      "delete": {
-        "tags": [
-          "Website"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/deleteWebsite"
             }
           }
         ],
@@ -279,6 +304,9 @@
         "websiteLogo": {
           "type": "string",
           "example": "aaa.png"
+        "owner": {
+          "type": "string",
+          "example": "Rivka"
         }
       }
     },
@@ -325,6 +353,10 @@
         "websiteLogo": {
           "type": "string",
           "example": "aaa.png"
+        },
+        "owner": {
+          "type": "string",
+          "example": "Rivka"
         }
       },
       "required": [
@@ -336,7 +368,8 @@
         "cpu",
         "memory",
         "status",
-        "websiteLogo"
+        "websiteLogo",
+         "owner"
       ]
     },
     "getWebsiteById": {

@@ -14,6 +14,17 @@ export const getWebById = async (webid) => {
     return website;
   }
 };
+export const getAll = async () => {
+  try {
+    const websites = await Website.find({ status: 'Active' });
+    if (!websites || websites.length === 0) {
+      return { error: 'There are no active websites' };
+    }
+    return websites;
+  } catch (err) {
+    return { error: err.message };
+  }
+};
 export const startStopWebsitePart2 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);

@@ -33,8 +33,9 @@ const doc = {
       typeOfDomain: 'com',
       cpu: 'Intel Core i7',
       memory: 16,
-      status: 1,
+      status:'Active',
       websiteLogo: 'aaa.png',
+      owner:'Rivka',
     },
     createWebsite: {
       $managerId: '1234',
@@ -44,8 +45,9 @@ const doc = {
       $typeOfDomain: 'com',
       $cpu: 'Intel Core i7',
       $memory: 16,
-      $status: 1,
+      $status: 'Active',
       $websiteLogo: 'aaa.png',
+      $owner: 'Rivka',
     },
     getWebsiteById: {
       $_id: '648983899e38afa07db32c65',

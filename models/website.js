@@ -43,13 +43,31 @@ const websiteSchema = mongoose.Schema({
     type: Number,
     required: false,
   },
-  status: {
-    type: String,
-    enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
-    required: true,
-  },
   websiteLogo: {
     type: String,
+    require: false,
+  },
+  status:
+{
+  type: String,
+  enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
+  require: true,
+},
+  owner:
+  {
+    type: String,
+    require: false,
+  },
+  createdAt:
+  {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
+  updatedAt:
+  {
+    type: Date,
+    default: Date.now,
     required: true,
   },
 });
