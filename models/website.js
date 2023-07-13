@@ -8,7 +8,7 @@ const websiteSchema = mongoose.Schema({
   },
   title: {
     type: String,
-    required: false,
+    required: true,
     validate: {
       validator: (value) => onlyEnglishLetters(value),
       message: 'Only English letters allowed',
@@ -16,7 +16,7 @@ const websiteSchema = mongoose.Schema({
   },
   description: {
     type: String,
-    required: false,
+    required: true,
     validate: {
       validator: (value) => onlyEnglishLetters(value),
       message: 'Only English letters allowed',
@@ -24,7 +24,7 @@ const websiteSchema = mongoose.Schema({
   },
   domain: {
     type: Array,
-    required: false,
+    required: true,
     validate: {
       validator: (value) => validateDomain(value),
       message: 'The domain is ok',
@@ -32,20 +32,20 @@ const websiteSchema = mongoose.Schema({
   },
   typeOfDomain: {
     type: String,
-    required: false,
+    required: true,
   },
   cpu: {
     type: String,
     enum: ['Intel Core i3', 'Intel Core i5', 'Intel Core i7', 'Intel Xeon', 'AMD Ryzen 3', 'AMD Ryzen 5', 'AMD Ryzen 7', 'ARM Cortex-A53', 'ARM Cortex-A72', 'ARM Cortex-A73'],
-    required: false,
+    required: true,
   },
   memory: {
     type: Number,
-    required: false,
+    required: true,
   },
   websiteLogo: {
     type: String,
-    require: false,
+    require: true,
   },
   status:
 {
@@ -56,7 +56,7 @@ const websiteSchema = mongoose.Schema({
   owner:
   {
     type: String,
-    require: false,
+    require: true,
   },
   createdAt:
   {
