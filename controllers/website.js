@@ -1,6 +1,6 @@
 import logger from '../logger.js';
 import {
-  startStopWebsitePart1, goingDeleteWebsite, createWeb, getWebById, getAll,
+  startStopWebsitePart1, goingDeleteWebsite, createWeb, getWebById, getAll, getAllCPUValues,
 } from '../services/website.js';
 
 export const getAllWebsites = async (req, res) => {
@@ -101,3 +101,15 @@ export const deleteWebsit = async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 };
+export async function getAllCPUValuesController(req, res) {
+  /*
+ #swagger.tags=['Website']
+ */
+  try {
+    const cpuValues = await getAllCPUValues();
+    res.status(200).json(cpuValues);
+  } catch (error) {
+    logger.error('Error in getAllCPUValuesController:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}

@@ -1,3 +1,4 @@
+import logger from '../logger.js';
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
@@ -91,3 +92,24 @@ export const deleteWebsite = async (id) => {
     return { error: err.message };
   }
 };
+export async function getAllCPUValues() {
+  try {
+    const cpuEnumValues = Website.schema.path('cpu').enumValues;
+    return cpuEnumValues;
+  } catch (error) {
+    logger.info('Error getting CPU values:', error);
+    throw error;
+  }
+}
+// export async function getAllCPUValues2() {
+//   try {
+//     const cpuValues =
+// ['Intel Core i3', 'Intel Core i5', 'Intel Core i7',
+// 'Intel Xeon', 'AMD Ryzen 3', 'AMD Ryzen 5', 'AMD Ryzen 7',
+// 'ARM Cortex-A53', 'ARM Cortex-A72', 'ARM Cortex-A73'];
+//     return cpuValues;
+//   } catch (error) {
+//     logger.info('Error getting CPU values:', error);
+//     throw error;
+//   }
+// }
