@@ -109,7 +109,6 @@ export async function getAllCPUValuesController(req, res) {
     const cpuValues = await getAllCPUValues();
     res.status(200).json(cpuValues);
   } catch (error) {
-    logger.error('Error in getAllCPUValuesController:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
