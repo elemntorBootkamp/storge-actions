@@ -66,7 +66,6 @@ describe('getWebById', () => {
   it('should throw an error if the website is not found', async () => {
     const id = '123';
     Website.findById = jest.fn().mockResolvedValue(null);
-
     await expect(getWebById(id)).rejects.toThrow(`Website with id ${id} not found`);
     expect(Website.findById).toHaveBeenCalledWith(id);
   });
