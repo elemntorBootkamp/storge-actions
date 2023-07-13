@@ -1,5 +1,5 @@
 import {
-  getAll, deleteWebsite, goingDeleteWebsite, startStopWebsitePart2,
+  getAll, getWebById, deleteWebsite, goingDeleteWebsite, startStopWebsitePart2,
 } from '../services/website.js';
 import Website from '../models/website.js';
 
@@ -39,6 +39,35 @@ describe('getAll', () => {
 
     expect(Website.find).toHaveBeenCalled();
     expect(result).toEqual({ error: error.message });
+  });
+});
+
+describe('getWebById', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should return the website with the given id', async () => {
+    const id = '123';
+    const website = {
+      id: '123',
+      name: 'example.com',
+      url: 'https://www.example.com',
+    };
+    Website.findById = jest.fn().mockResolvedValue(website);
+
+    const result = await getWebById(id);
+
+    expect(Website.findById).toHaveBeenCalledWith(id);
+    expect(result).toEqual(website);
+  });
+
+  it('should throw an error if the website is not found', async () => {
+    const id = '123';
+    Website.findById = jest.fn().mockResolvedValue(null);
+
+    await expect(getWebById(id)).rejects.toThrow(`Website with id ${id} not found`);
+    expect(Website.findById).toHaveBeenCalledWith(id);
   });
 });
 
