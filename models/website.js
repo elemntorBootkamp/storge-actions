@@ -46,17 +46,17 @@ const websiteSchema = mongoose.Schema({
   },
   websiteLogo: {
     type: String,
-    require: true,
+    required: true,
   },
   status:
 {
+  type: String,
   enum: Object.values(WebStatusEnum),
-  require: true,
+  required: true,
 },
-  owner:
-  {
+  owner: {
     type: String,
-    require: true,
+    required: true,
   },
   createdAt:
   {
