@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { validateDomain, onlyEnglishLetters } from '../services/validate.js';
+import { WebStatusEnum, cpuEnum } from '../enums/website.js';
 
 const websiteSchema = mongoose.Schema({
   managerId: {
@@ -36,7 +37,7 @@ const websiteSchema = mongoose.Schema({
   },
   cpu: {
     type: String,
-    enum: ['Intel Core i3', 'Intel Core i5', 'Intel Core i7', 'Intel Xeon', 'AMD Ryzen 3', 'AMD Ryzen 5', 'AMD Ryzen 7', 'ARM Cortex-A53', 'ARM Cortex-A72', 'ARM Cortex-A73'],
+    enum: Object.values(cpuEnum),
     required: true,
   },
   memory: {
@@ -49,8 +50,7 @@ const websiteSchema = mongoose.Schema({
   },
   status:
 {
-  type: String,
-  enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
+  enum: Object.values(WebStatusEnum),
   require: true,
 },
   owner:
