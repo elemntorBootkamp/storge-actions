@@ -1,10 +1,10 @@
 export const WebStatusEnum = {
-  Active: 'Active',
-  About_to_be_active: 'About to be active',
-  Inactive: 'Inactive',
-  About_to_be_inactive: 'About to be inactive',
-  About_to_be_deleted: 'About to be deleted',
-  Deleted: 'Deleted',
+  active: 'active',
+  about_to_be_active: 'about to be active',
+  inactive: 'inactive',
+  about_to_be_inactive: 'about to be inactive',
+  about_to_be_deleted: 'about to be deleted',
+  deleted: 'deleted',
 };
 export const cpuEnum = {
   Intel_Core_i3: 'Intel Core i3',

@@ -30,12 +30,12 @@ export const startStopWebsitePart2 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
     if (!website) return { error: 'Website doesnt found' };
-    if (website.status === WebStatusEnum.About_to_be_inactive) {
-      website.status = WebStatusEnum.Inactive;
+    if (website.status === WebStatusEnum.about_to_be_inactive) {
+      website.status = WebStatusEnum.inactive;
       await website.save();
       return { success: true, message: `seccuss change status to ${website.status}` };
-    } if (website.status === WebStatusEnum.About_to_be_active) {
-      website.status = WebStatusEnum.Active;
+    } if (website.status === WebStatusEnum.about_to_be_active) {
+      website.status = WebStatusEnum.active;
       await website.save();
       return { success: true, message: `seccuss change status to ${website.status}` };
     } return { error: `This website is already ${website.status}` };
@@ -47,14 +47,14 @@ export const startStopWebsitePart1 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
     if (!website) return { error: 'Website doesnt found' };
-    if (website.status === WebStatusEnum.Active) {
-      website.status = WebStatusEnum.About_to_be_inactive;
+    if (website.status === WebStatusEnum.active) {
+      website.status = WebStatusEnum.about_to_be_inactive;
       await website.save();
       sendToRabbitMQ(websiteId, 'startStopWebsitePart2');
       return { success: true, message: `seccuss change status to ${website.status}` };
     }
-    if (website.status === WebStatusEnum.Inactive) {
-      website.status = WebStatusEnum.About_to_be_active;
+    if (website.status === WebStatusEnum.inactive) {
+      website.status = WebStatusEnum.about_to_be_active;
       await website.save();
       sendToRabbitMQ(websiteId, 'startStopWebsitePart2');
       return { success: true, message: `seccuss change status to ${website.status}` };
@@ -68,9 +68,9 @@ export const goingDeleteWebsite = async (id) => {
   try {
     const website = await Website.findById(id);
     if (!website) return { error: `Website with id ${id} not found` };
-    if (website.status !== WebStatusEnum.Deleted
-      && website.status !== WebStatusEnum.goingDeleteWebsite) {
-      website.status = WebStatusEnum.About_to_be_deleted;
+    if (website.status !== WebStatusEnum.deleted
+      && website.status !== WebStatusEnum.about_to_be_deleted) {
+      website.status = WebStatusEnum.about_to_be_deleted;
       await website.save();
       sendToRabbitMQ(id, 'deleteWebsit');
       return { success: true, message: `the website with id: ${id} is going to be deleted` };
@@ -83,8 +83,8 @@ export const goingDeleteWebsite = async (id) => {
 export const deleteWebsite = async (id) => {
   try {
     const website = await Website.findById(id);
-    if (website.status === WebStatusEnum.About_to_be_deleted) {
-      website.status = WebStatusEnum.Deleted;
+    if (website.status === WebStatusEnum.about_to_be_deleted) {
+      website.status = WebStatusEnum.deleted;
       await website.save();
       return { success: true, message: `the website with id: ${id} is going to be deleted` };
     }
@@ -93,13 +93,6 @@ export const deleteWebsite = async (id) => {
     return { error: err.message };
   }
 };
-// export async function getAllCPUValues() {
-//   try {
-//     const cpuEnumValues = Website.schema.path('cpu').enumValues;
-//     return cpuEnumValues;
-//   } catch (err) {
-//     return { error: err.message };
-//   }
 export async function getAllCPUValues() {
   try {
     return cpuEnum;

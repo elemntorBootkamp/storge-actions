@@ -35,12 +35,6 @@ const websiteSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  // cpu: {
-  //   type: String,
-  // eslint-disable-next-line max-len
-  // enum: ['Intel Core i3', 'Intel Core i5', 'Intel Core i7', 'Intel Xeon', 'AMD Ryzen 3', 'AMD Ryzen 5', 'AMD Ryzen 7', 'ARM Cortex-A53', 'ARM Cortex-A72', 'ARM Cortex-A73'],
-  //   required: true,
-  // },
   cpu: {
     type: String,
     enum: Object.values(cpuEnum),
@@ -56,11 +50,6 @@ const websiteSchema = mongoose.Schema({
   },
   status:
 {
-  // type: String,
-  // eslint-disable-next-line max-len
-  // enum: ['Active', 'About to be active', 'Inactive', 'About to be inactive', 'About to be deleted', 'Deleted'],
-  // require: true,
-  type: String,
   enum: Object.values(WebStatusEnum),
   require: true,
 },
