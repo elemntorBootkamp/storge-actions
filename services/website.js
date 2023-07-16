@@ -1,11 +1,28 @@
+import logger from '../logger.js';
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
 export const createWeb = async (data) => {
-  const website = new Website(data);
-  await website.save();
-  return { success: true, message: data };
+  try {
+    await sendToRabbitMQ(data, 'create');
+    return { success: true, message: 'going to create website' };
+  } catch (error) {
+    return { error: error.message };
+  }
 };
+export const create = async (data) => {
+  try {
+    const website = new Website(data);
+    logger.info('1');
+    await website.save();
+    logger.info('2');
+    return { success: true, message: data };
+  } catch (err) {
+    logger.info(err);
+    return { error: err.message };
+  }
+};
+
 export const getWebById = async (webid) => {
   const website = await Website.findById(webid);
   if (!website) {
