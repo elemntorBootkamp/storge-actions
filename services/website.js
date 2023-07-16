@@ -17,7 +17,7 @@ export const getWebById = async (webid) => {
 };
 export const getAll = async () => {
   try {
-    const websites = await Website.find({ status: WebStatusEnum.Active });
+    const websites = await Website.find({ status: WebStatusEnum.active });
     if (!websites || websites.length === 0) {
       return { error: 'There are no active websites' };
     }
