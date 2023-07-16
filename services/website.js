@@ -108,3 +108,11 @@ export const deleteWebsite = async (id) => {
     return { error: err.message };
   }
 };
+export async function getAllCPUValues() {
+  try {
+    const cpuEnumValues = Website.schema.path('cpu').enumValues;
+    return cpuEnumValues;
+  } catch (err) {
+    return { error: err.message };
+  }
+}
