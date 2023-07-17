@@ -105,8 +105,6 @@ export const deleteWebsit = async (req, res) => {
   */
   const { webId } = req.params;
   const userId = req.headers.user_id;
-  logger.info(`webId: ${webId}`);
-  logger.info(`userId: ${userId}`);
   try {
     const result = await goingDeleteWebsite(webId, userId);
     if (result.error) {
