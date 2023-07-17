@@ -6,7 +6,7 @@ import {
 export const getAllWebsites = async (req, res) => {
   /*
  #swagger.tags=['Website']
- #swagger.parameters['managerid'] = {
+ #swagger.parameters['manager_id'] = {
         in: 'header',
         required: true,
         type: 'string',
