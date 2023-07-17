@@ -43,10 +43,11 @@ export const startStopWebsitePart2 = async (websiteId) => {
     return { error: error.message };
   }
 };
-export const startStopWebsitePart1 = async (websiteId) => {
+export const startStopWebsitePart1 = async (websiteId, userId) => {
   try {
     const website = await Website.findById(websiteId);
     if (!website) return { error: 'Website doesnt found' };
+    if (website.managerId !== userId) return { error: 'This user can not delete this website' };
     if (website.status === WebStatusEnum.active) {
       website.status = WebStatusEnum.about_to_be_inactive;
       await website.save();
@@ -64,18 +65,19 @@ export const startStopWebsitePart1 = async (websiteId) => {
     return { error: 'Internal several error' };
   }
 };
-export const goingDeleteWebsite = async (id) => {
+export const goingDeleteWebsite = async (webId, userId) => {
   try {
-    const website = await Website.findById(id);
-    if (!website) return { error: `Website with id ${id} not found` };
+    const website = await Website.findById(webId);
+    if (!website) return { error: `Website with id ${webId} not found` };
+    if (website.managerId !== userId) return { error: 'This user can not delete this website' };
     if (website.status !== WebStatusEnum.deleted
       && website.status !== WebStatusEnum.about_to_be_deleted) {
       website.status = WebStatusEnum.about_to_be_deleted;
       await website.save();
-      sendToRabbitMQ(id, 'deleteWebsit');
-      return { success: true, message: `the website with id: ${id} is going to be deleted` };
+      sendToRabbitMQ(webId, 'deleteWebsit');
+      return { success: true, message: `the website with id: ${webId} is going to be deleted` };
     }
-    return { error: 'This website is already Deleted' };
+    return { error: 'This website is already deleted' };
   } catch (err) {
     return { error: err.message };
   }
