@@ -39,6 +39,13 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "managerid",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the user making the request"
           }
         ],
         "responses": {
@@ -57,7 +64,7 @@
         }
       }
     },
-    "/website/cpu": {
+    "/website/cpu/": {
       "get": {
         "tags": [
           "Website"
@@ -83,7 +90,7 @@
         }
       }
     },
-    "/Website/{id}": {
+    "/Website/{id}/": {
       "get": {
         "tags": [
           "Website"
@@ -103,6 +110,13 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "manager_id",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the user making the request"
           }
         ],
         "responses": {
@@ -114,6 +128,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -338,10 +355,6 @@
         "websiteLogo": {
           "type": "string",
           "example": "aaa.png"
-        },
-        "owner": {
-          "type": "string",
-          "example": "Rivka"
         }
       }
     },
@@ -388,10 +401,6 @@
         "websiteLogo": {
           "type": "string",
           "example": "aaa.png"
-        },
-        "owner": {
-          "type": "string",
-          "example": "Rivka"
         }
       },
       "required": [
@@ -403,8 +412,19 @@
         "cpu",
         "memory",
         "status",
-        "websiteLogo",
-        "owner"
+        "websiteLogo"
+      ]
+    },
+    "getAllWebsites": {
+      "type": "object",
+      "properties": {
+        "manager_id": {
+          "type": "string",
+          "example": "1234"
+        }
+      },
+      "required": [
+        "manager_id"
       ]
     },
     "getWebsiteById": {
@@ -413,10 +433,15 @@
         "_id": {
           "type": "string",
           "example": "648983899e38afa07db32c65"
+        },
+        "manager_id": {
+          "type": "string",
+          "example": "1234"
         }
       },
       "required": [
-        "_id"
+        "_id",
+        "manager_id"
       ]
     },
     "startStopWebsite": {

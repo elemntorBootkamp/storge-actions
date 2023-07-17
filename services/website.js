@@ -1,3 +1,4 @@
+// import logger from '../logger.js';
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
@@ -6,17 +7,24 @@ export const createWeb = async (data) => {
   await website.save();
   return { success: true, message: data };
 };
-export const getWebById = async (webid) => {
-  const website = await Website.findById(webid);
-  if (!website) {
-    throw new Error(`Website with id ${webid} not found`);
-  } else {
+
+export const getWebById = async (webid, managerId) => {
+  try {
+    const website = await Website.findOne({ _id: webid });
+    if (!website) {
+      return { error: `Website with id ${webid} not found` };
+    } if (website.managerId !== managerId) {
+      return { error: `Website with managerId ${managerId} not found` };
+    }
     return website;
+  } catch (err) {
+    return { error: err.message };
   }
 };
-export const getAll = async () => {
+
+export const getAll = async (managerId) => {
   try {
-    const websites = await Website.find({ status: 'Active' });
+    const websites = await Website.find({ status: { $nin: ['Deleted', 'About to be deleted'] }, managerId }).limit(500);
     if (!websites || websites.length === 0) {
       return { error: 'There are no active websites' };
     }
