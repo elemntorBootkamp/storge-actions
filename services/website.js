@@ -3,9 +3,26 @@ import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 import { WebStatusEnum, cpuEnum } from '../enums/website.js';
 
 export const createWeb = async (data) => {
-  const website = new Website(data);
-  await website.save();
-  return { success: true, message: data };
+  try {
+  // eslint-disable-next-line no-param-reassign
+    data.status = WebStatusEnum.pending;
+    await sendToRabbitMQ(data, 'create');
+    return { success: true, message: 'going to create website' };
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+export const create = async (data) => {
+  try {
+    const website = new Website(data);
+    website.status = WebStatusEnum.active;
+
+    await website.save();
+    return { success: true, message: data };
+  } catch (err) {
+    // There should be a code for sending an email here
+    return { error: err.message };
+  }
 };
 
 export const getWebById = async (webid, managerId) => {
