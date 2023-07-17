@@ -38,7 +38,6 @@ const doc = {
       memory: 16,
       status: 'active',
       websiteLogo: 'aaa.png',
-      owner: 'Rivka',
     },
     createWebsite: {
       $managerId: '1234',
@@ -50,10 +49,13 @@ const doc = {
       $memory: 16,
       $status: 'active',
       $websiteLogo: 'aaa.png',
-      $owner: 'Rivka',
+    },
+    getAllWebsites: {
+      $manager_id: '1234',
     },
     getWebsiteById: {
       $_id: '648983899e38afa07db32c65',
+      $manager_id: '1234',
     },
     startStopWebsite: {
       $_id: '648983899e38afa07db32c65',

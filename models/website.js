@@ -54,10 +54,6 @@ const websiteSchema = mongoose.Schema({
   enum: Object.values(WebStatusEnum),
   required: true,
 },
-  owner: {
-    type: String,
-    required: true,
-  },
   createdAt:
   {
     type: Date,

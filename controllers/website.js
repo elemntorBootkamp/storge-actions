@@ -6,9 +6,16 @@ import {
 export const getAllWebsites = async (req, res) => {
   /*
  #swagger.tags=['Website']
- */
+ #swagger.parameters['manager_id'] = {
+        in: 'header',
+        required: true,
+        type: 'string',
+        description: 'The ID of the user making the request'
+      }
+    */
   try {
-    const result = await getAll();
+    const managerId = req.headers.managerid;
+    const result = await getAll(managerId);
     if (result.error) {
       if (result.error === 'There are no active websites') res.status(404).send({ message: result.error });
       else res.status(500).send({ error: result.error });
@@ -17,23 +24,36 @@ export const getAllWebsites = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
 export const getWebsiteById = async (req, res) => {
   /*
-  #swagger.tags=['Website']
-  #swagger.parameters['id'] = {
-      in: 'path',
-      required: true,
-      schema: { $ref: "#/definitions/getWebsiteById" }
-  }
-  */
+   #swagger.tags=['Website']
+   #swagger.parameters['id'] = {
+       in: 'path',
+       required: true,
+       schema: { $ref: "#/definitions/getWebsiteById" }
+   }
+   #swagger.parameters['manager_id'] = {
+        in: 'header',
+        required: true,
+        type: 'string',
+        description: 'The ID of the user making the request'
+      }
+    */
   const webid = req.params.id;
+  const managerId = req.headers.manager_id;
   try {
-    const website = await getWebById(webid);
-    res.status(200).send(website);
+    const result = await getWebById(webid, managerId);
+    if (result.error) {
+      if (result.error === `Website with id ${webid} not found`) res.status(404).send({ error: result.error });
+      else if (result.error === `Website with managerId ${managerId} not found`) res.status(404).send({ error: result.error });
+      else res.status(500).send({ error: result.error });
+    } else res.status(200).send(result);
   } catch (error) {
-    res.status(404).send({ message: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
+
 export const createWebsite = async (req, res) => {
   /*
   #swagger.tags=['Website']

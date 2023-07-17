@@ -8,8 +8,8 @@ import {
 const router = Router();
 
 router.get('/website/', auth, getAllWebsites);
-router.get('/website/cpu', auth, getAllCPUValuesController);
-router.get('/Website/:id', auth, getWebsiteById);
+router.get('/website/cpu/', auth, getAllCPUValuesController);
+router.get('/Website/:id/', auth, getWebsiteById);
 router.post('/Website/', auth, createWebsite);
 router.delete('/website/:webId', auth, deleteWebsit);
 router.put('/website/startStopWebsite/:id', auth, startStopWebsite);
