@@ -24,7 +24,13 @@ export const getWebById = async (webid, managerId) => {
 
 export const getAll = async (managerId) => {
   try {
-    const websites = await Website.find({ status: { $nin: ['Deleted', 'About to be deleted'] }, managerId }).limit(50);
+    const websites = await Website.find({
+      status: {
+        $nin:
+       [WebStatusEnum.deleted, WebStatusEnum.about_to_be_deleted],
+      },
+      managerId,
+    }).limit(50);
     if (!websites || websites.length === 0) {
       return { error: 'There are no active websites' };
     }
