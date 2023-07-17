@@ -11,6 +11,6 @@ router.get('/website/', auth, getAllWebsites);
 router.get('/website/cpu/', auth, getAllCPUValuesController);
 router.get('/Website/:id/', auth, getWebsiteById);
 router.post('/Website/', auth, createWebsite);
-router.delete('/website/:id', auth, deleteWebsit);
+router.delete('/website/:webId', auth, deleteWebsit);
 router.put('/website/startStopWebsite/:id', auth, startStopWebsite);
 export default router;
