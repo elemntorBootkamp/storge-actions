@@ -152,7 +152,7 @@
         }
       }
     },
-    "/website/{id}": {
+    "/website/{webId}": {
       "delete": {
         "tags": [
           "Website"
@@ -160,18 +160,23 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "webId",
             "in": "path",
             "required": true,
             "type": "string",
-            "schema": {
-              "$ref": "#/definitions/deleteWebsite"
-            }
+            "description": "The ID of the website to delete"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the user making the request"
           }
         ],
         "responses": {
@@ -213,6 +218,13 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the user making the request"
           }
         ],
         "responses": {
@@ -425,22 +437,32 @@
         "_id": {
           "type": "string",
           "example": "648983899e38afa07db32c65"
+        },
+        "user_id": {
+          "type": "string",
+          "example": "1234"
         }
       },
       "required": [
-        "_id"
+        "_id",
+        "user_id"
       ]
     },
     "deleteWebsite": {
       "type": "object",
       "properties": {
-        "_id": {
+        "webId": {
           "type": "string",
           "example": "648983899e38afa07db32c65"
+        },
+        "user_id": {
+          "type": "string",
+          "example": "1234"
         }
       },
       "required": [
-        "_id"
+        "webId",
+        "user_id"
       ]
     },
     "Backup": {

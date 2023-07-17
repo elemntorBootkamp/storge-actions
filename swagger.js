@@ -57,9 +57,11 @@ const doc = {
     },
     startStopWebsite: {
       $_id: '648983899e38afa07db32c65',
+      $user_id: '1234',
     },
     deleteWebsite: {
-      $_id: '648983899e38afa07db32c65',
+      $webId: '648983899e38afa07db32c65',
+      $user_id: '1234',
     },
     Backup: {
       siteId: 1,
