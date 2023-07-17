@@ -1,4 +1,5 @@
 export const WebStatusEnum = {
+  pending: 'pending',
   active: 'active',
   about_to_be_active: 'about to be active',
   inactive: 'inactive',

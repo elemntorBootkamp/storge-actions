@@ -4,8 +4,8 @@ import { WebStatusEnum, cpuEnum } from '../enums/website.js';
 
 export const createWeb = async (data) => {
   try {
-    // eslint-disable-next-line no-param-reassign
-    data.status = 'Active';
+  // eslint-disable-next-line no-param-reassign
+    data.status = WebStatusEnum.pending;
     await sendToRabbitMQ(data, 'create');
     return { success: true, message: 'going to create website' };
   } catch (error) {
@@ -15,7 +15,8 @@ export const createWeb = async (data) => {
 export const create = async (data) => {
   try {
     const website = new Website(data);
-    website.status = 'Active';
+    website.status = WebStatusEnum.active;
+
     await website.save();
     return { success: true, message: data };
   } catch (err) {
