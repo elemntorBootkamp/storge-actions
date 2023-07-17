@@ -45,7 +45,7 @@ export const createWebsite = async (req, res) => {
 */
   try {
     const result = await createWeb(req.body);
-    res.status(200).send({ message: result.message });
+    res.status(200).send({ message: result.message, res: result.res });
   } catch (error) {
     res.status(400).send({ message: error.message });
   }

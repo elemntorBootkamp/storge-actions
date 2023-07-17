@@ -1,9 +1,10 @@
-import logger from '../logger.js';
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
 
 export const createWeb = async (data) => {
   try {
+    // eslint-disable-next-line no-param-reassign
+    data.status = 'Active';
     await sendToRabbitMQ(data, 'create');
     return { success: true, message: 'going to create website' };
   } catch (error) {
@@ -13,16 +14,14 @@ export const createWeb = async (data) => {
 export const create = async (data) => {
   try {
     const website = new Website(data);
-    logger.info('1');
+    website.status = 'Active';
     await website.save();
-    logger.info('2');
     return { success: true, message: data };
   } catch (err) {
-    logger.info(err);
+    // There should be a code for sending an email here
     return { error: err.message };
   }
 };
-
 export const getWebById = async (webid) => {
   const website = await Website.findById(webid);
   if (!website) {
