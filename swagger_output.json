@@ -333,7 +333,7 @@
         },
         "status": {
           "type": "string",
-          "example": "Active"
+          "example": "active"
         },
         "websiteLogo": {
           "type": "string",
@@ -383,7 +383,7 @@
         },
         "status": {
           "type": "string",
-          "example": "Active"
+          "example": "active"
         },
         "websiteLogo": {
           "type": "string",
