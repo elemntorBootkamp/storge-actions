@@ -80,15 +80,24 @@ export const startStopWebsite = async (req, res) => {
      required: true,
    schema: { $ref: "#/definitions/startStopWebsite" }
  }
+ #swagger.parameters['user_id'] = {
+      in: 'header',
+      required: true,
+      type: 'string',
+      description: 'The ID of the user making the request'
+    }
 */
   try {
     const websiteId = req.params.id;
-    const result = await startStopWebsitePart1(websiteId);
+    const userId = req.headers.user_id;
+    const result = await startStopWebsitePart1(websiteId, userId);
     if (result.error) {
       if (result.error === 'Internal several error') {
         res.status(500).send({ error: result.error });
       } else if (result.error === 'Website doesnt found') {
         res.status(404).send({ error: result.error });
+      } else if (result.error === 'This user can not delete this website') {
+        res.status(400).send({ error: result.error });
       } else {
         res.status(400).send({ error: result.error });
       }
@@ -101,19 +110,27 @@ export const startStopWebsite = async (req, res) => {
 export const deleteWebsit = async (req, res) => {
 /*
 #swagger.tags=['Website']
-#swagger.parameters['id'] = {
-         in: 'path',
-              required: true,
-          schema: { $ref: "#/definitions/deleteWebsite" }
-      }
+ #swagger.parameters['webId'] = {
+      in: 'path',
+      required: true,
+      type: 'string',
+      description: 'The ID of the website to delete'
+    }
+    #swagger.parameters['user_id'] = {
+      in: 'header',
+      required: true,
+      type: 'string',
+      description: 'The ID of the user making the request'
+    }
   */
-  const webId = req.params.id;
-  logger.info(webId);
+  const { webId } = req.params;
+  const userId = req.headers.user_id;
   try {
-    const result = await goingDeleteWebsite(webId);
+    const result = await goingDeleteWebsite(webId, userId);
     if (result.error) {
       if (result.error === `Website with id ${webId} not found`) res.status(404).send({ message: result.error });
-      else if (result.error === 'This website is already Deleted') res.status(400).send({ message: result.error });
+      else if (result.error === 'This user can not delete this website') res.status(400).send({ message: result.error });
+      else if (result.error === 'This website is already deleted') res.status(400).send({ message: result.error });
       else res.status(500).send({ error: result.error });
     } else res.status(200).send(result);
   } catch (error) {

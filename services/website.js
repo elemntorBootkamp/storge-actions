@@ -1,6 +1,7 @@
 // import logger from '../logger.js';
 import Website from '../models/website.js';
 import sendToRabbitMQ from '../rabbitMQ/send_message.js';
+import { WebStatusEnum, cpuEnum } from '../enums/website.js';
 
 export const createWeb = async (data) => {
   const website = new Website(data);
@@ -37,12 +38,12 @@ export const startStopWebsitePart2 = async (websiteId) => {
   try {
     const website = await Website.findById(websiteId);
     if (!website) return { error: 'Website doesnt found' };
-    if (website.status === 'About to be inactive') {
-      website.status = 'Inactive';
+    if (website.status === WebStatusEnum.about_to_be_inactive) {
+      website.status = WebStatusEnum.inactive;
       await website.save();
       return { success: true, message: `seccuss change status to ${website.status}` };
-    } if (website.status === 'About to be active') {
-      website.status = 'Active';
+    } if (website.status === WebStatusEnum.about_to_be_active) {
+      website.status = WebStatusEnum.active;
       await website.save();
       return { success: true, message: `seccuss change status to ${website.status}` };
     } return { error: `This website is already ${website.status}` };
@@ -50,18 +51,19 @@ export const startStopWebsitePart2 = async (websiteId) => {
     return { error: error.message };
   }
 };
-export const startStopWebsitePart1 = async (websiteId) => {
+export const startStopWebsitePart1 = async (websiteId, userId) => {
   try {
     const website = await Website.findById(websiteId);
     if (!website) return { error: 'Website doesnt found' };
-    if (website.status === 'Active') {
-      website.status = 'About to be inactive';
+    if (website.managerId !== userId) return { error: 'This user can not delete this website' };
+    if (website.status === WebStatusEnum.active) {
+      website.status = WebStatusEnum.about_to_be_inactive;
       await website.save();
       sendToRabbitMQ(websiteId, 'startStopWebsitePart2');
       return { success: true, message: `seccuss change status to ${website.status}` };
     }
-    if (website.status === 'Inactive') {
-      website.status = 'About to be active';
+    if (website.status === WebStatusEnum.inactive) {
+      website.status = WebStatusEnum.about_to_be_active;
       await website.save();
       sendToRabbitMQ(websiteId, 'startStopWebsitePart2');
       return { success: true, message: `seccuss change status to ${website.status}` };
@@ -71,17 +73,19 @@ export const startStopWebsitePart1 = async (websiteId) => {
     return { error: 'Internal several error' };
   }
 };
-export const goingDeleteWebsite = async (id) => {
+export const goingDeleteWebsite = async (webId, userId) => {
   try {
-    const website = await Website.findById(id);
-    if (!website) return { error: `Website with id ${id} not found` };
-    if (website.status !== 'Deleted') {
-      website.status = 'About to be deleted';
+    const website = await Website.findById(webId);
+    if (!website) return { error: `Website with id ${webId} not found` };
+    if (website.managerId !== userId) return { error: 'This user can not delete this website' };
+    if (website.status !== WebStatusEnum.deleted
+      && website.status !== WebStatusEnum.about_to_be_deleted) {
+      website.status = WebStatusEnum.about_to_be_deleted;
       await website.save();
-      sendToRabbitMQ(id, 'deleteWebsit');
-      return { success: true, message: `the website with id: ${id} is going to be deleted` };
+      sendToRabbitMQ(webId, 'deleteWebsit');
+      return { success: true, message: `the website with id: ${webId} is going to be deleted` };
     }
-    return { error: 'This website is already Deleted' };
+    return { error: 'This website is already deleted' };
   } catch (err) {
     return { error: err.message };
   }
@@ -89,8 +93,8 @@ export const goingDeleteWebsite = async (id) => {
 export const deleteWebsite = async (id) => {
   try {
     const website = await Website.findById(id);
-    if (website.status === 'About to be deleted') {
-      website.status = 'Deleted';
+    if (website.status === WebStatusEnum.about_to_be_deleted) {
+      website.status = WebStatusEnum.deleted;
       await website.save();
       return { success: true, message: `the website with id: ${id} is going to be deleted` };
     }
@@ -101,8 +105,7 @@ export const deleteWebsite = async (id) => {
 };
 export async function getAllCPUValues() {
   try {
-    const cpuEnumValues = Website.schema.path('cpu').enumValues;
-    return cpuEnumValues;
+    return cpuEnum;
   } catch (err) {
     return { error: err.message };
   }

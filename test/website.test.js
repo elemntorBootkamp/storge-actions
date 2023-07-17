@@ -3,6 +3,7 @@ import {
   startStopWebsitePart1, startStopWebsitePart2,
 } from '../services/website.js';
 import Website from '../models/website.js';
+import { WebStatusEnum } from '../enums/website.js';
 
 jest.mock('../models/website.js');
 
@@ -77,48 +78,79 @@ describe('goingDeleteWebsite', () => {
   });
 
   it('should delete a website with the given id', async () => {
-    const id = '123';
+    const webId = '123';
+    const userId = '456';
     const website = {
       id: '123',
-      status: 'Active',
+      status: WebStatusEnum.active,
+      managerId: '456',
       save: jest.fn(),
     };
     Website.findById = jest.fn().mockResolvedValue(website);
 
-    const result = await goingDeleteWebsite(id);
+    const result = await goingDeleteWebsite(webId, userId);
 
-    expect(Website.findById).toHaveBeenCalledWith(id);
-    expect(website.status).toBe('About to be deleted');
+    expect(Website.findById).toHaveBeenCalledWith(webId);
+    expect(website.status).toBe(WebStatusEnum.about_to_be_deleted);
     expect(website.save).toHaveBeenCalled();
-    expect(result).toEqual({ success: true, message: `the website with id: ${id} is going to be deleted` });
+    expect(result).toEqual({ success: true, message: `the website with id: ${webId} is going to be deleted` });
   });
 
   it('should return an error if the website is already deleted', async () => {
-    const id = '123';
+    const webId = '123';
+    const userId = '456';
     const website = {
       id: '123',
-      status: 'Deleted',
+      managerId: '456',
+      status: WebStatusEnum.deleted,
     };
     Website.findById = jest.fn().mockResolvedValue(website);
 
-    const result = await goingDeleteWebsite(id);
+    const result = await goingDeleteWebsite(webId, userId);
 
-    expect(Website.findById).toHaveBeenCalledWith(id);
-    expect(result).toEqual({ error: `This website is already ${website.status}` });
+    expect(Website.findById).toHaveBeenCalledWith(webId);
+    expect(result).toEqual({ error: 'This website is already deleted' });
+  });
+
+  it('should return an error if the website not found', async () => {
+    const webId = '123';
+    const userId = '456';
+    Website.findById = jest.fn().mockResolvedValue(null);
+
+    const result = await goingDeleteWebsite(webId, userId);
+
+    expect(Website.findById).toHaveBeenCalledWith(webId);
+    expect(result).toEqual({ error: `Website with id ${webId} not found` });
+  });
+
+  it('should return an error if the user is not authorized to delete the website', async () => {
+    const webId = '123';
+    const userId = '456';
+    const website = {
+      id: '123',
+      status: WebStatusEnum.active,
+      managerId: '789',
+    };
+    Website.findById = jest.fn().mockResolvedValue(website);
+
+    const result = await goingDeleteWebsite(webId, userId);
+
+    expect(Website.findById).toHaveBeenCalledWith(webId);
+    expect(result).toEqual({ error: 'This user can not delete this website' });
   });
 
   it('should return an error if an exception occurs', async () => {
-    const id = '123';
+    const webId = '123';
+    const userId = '456';
     const error = new Error('Some error');
     Website.findById = jest.fn().mockRejectedValue(error);
 
-    const result = await goingDeleteWebsite(id);
+    const result = await goingDeleteWebsite(webId, userId);
 
-    expect(Website.findById).toHaveBeenCalledWith(id);
+    expect(Website.findById).toHaveBeenCalledWith(webId);
     expect(result).toEqual({ error: error.message });
   });
 });
-
 describe('deleteWebsite', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -128,7 +160,7 @@ describe('deleteWebsite', () => {
     const id = '123';
     const website = {
       id: '123',
-      status: 'About to be deleted',
+      status: WebStatusEnum.about_to_be_deleted,
       save: jest.fn(),
     };
     Website.findById = jest.fn().mockResolvedValue(website);
@@ -136,7 +168,7 @@ describe('deleteWebsite', () => {
     const result = await deleteWebsite(id);
 
     expect(Website.findById).toHaveBeenCalledWith(id);
-    expect(website.status).toBe('Deleted');
+    expect(website.status).toBe(WebStatusEnum.deleted);
     expect(website.save).toHaveBeenCalled();
     expect(result).toEqual({ success: true, message: `the website with id: ${id} is going to be deleted` });
   });
@@ -145,7 +177,7 @@ describe('deleteWebsite', () => {
     const id = '123';
     const website = {
       id: '123',
-      status: 'Deleted',
+      status: WebStatusEnum.deleted,
     };
     Website.findById = jest.fn().mockResolvedValue(website);
 
@@ -171,11 +203,11 @@ describe('startStopWebsitePart1', () => {
     jest.clearAllMocks();
   });
 
-  it('should change the status to "About to be inactive" if the website status is "Active"', async () => {
+  it('should change the status to "about to be inactive" if the website status is "active"', async () => {
     const websiteId = '123';
     const website = {
       id: '123',
-      status: 'Active',
+      status: WebStatusEnum.active,
       save: jest.fn(),
     };
     Website.findById = jest.fn().mockResolvedValue(website);
@@ -183,19 +215,19 @@ describe('startStopWebsitePart1', () => {
     const result = await startStopWebsitePart1(websiteId);
 
     expect(Website.findById).toHaveBeenCalledWith(websiteId);
-    expect(website.status).toBe('About to be inactive');
+    expect(website.status).toBe(WebStatusEnum.about_to_be_inactive);
     expect(website.save).toHaveBeenCalled();
     expect(result).toEqual({
       success: true,
-      message: 'seccuss change status to About to be inactive',
+      message: 'seccuss change status to about to be inactive',
     });
   });
 
-  it('should change the status to "About to be active" if the website status is "Inactive"', async () => {
+  it('should change the status to "about to be active" if the website status is "inactive"', async () => {
     const websiteId = '123';
     const website = {
       id: '123',
-      status: 'Inactive',
+      status: WebStatusEnum.inactive,
       save: jest.fn(),
     };
     Website.findById = jest.fn().mockResolvedValue(website);
@@ -203,11 +235,11 @@ describe('startStopWebsitePart1', () => {
     const result = await startStopWebsitePart1(websiteId);
 
     expect(Website.findById).toHaveBeenCalledWith(websiteId);
-    expect(website.status).toBe('About to be active');
+    expect(website.status).toBe(WebStatusEnum.about_to_be_active);
     expect(website.save).toHaveBeenCalled();
     expect(result).toEqual({
       success: true,
-      message: 'seccuss change status to About to be active',
+      message: 'seccuss change status to about to be active',
     });
   });
 
@@ -215,7 +247,7 @@ describe('startStopWebsitePart1', () => {
     const websiteId = '123';
     const website = {
       id: '123',
-      status: 'About to be inactive',
+      status: WebStatusEnum.about_to_be_inactive,
     };
     Website.findById = jest.fn().mockResolvedValue(website);
 
@@ -223,7 +255,7 @@ describe('startStopWebsitePart1', () => {
 
     expect(Website.findById).toHaveBeenCalledWith(websiteId);
     expect(result).toEqual({
-      error: 'This website is already About to be inactive',
+      error: 'This website is already about to be inactive',
     });
   });
 
@@ -267,35 +299,35 @@ describe('startStopWebsitePart2', () => {
     expect(result).toEqual({ error: 'Website doesnt found' });
   });
 
-  it('should change the status to "Inactive" if the current status is "About to be inactive"', async () => {
+  it('should change the status to "inactive" if the current status is "about to be inactive"', async () => {
     const websiteId = '6476fb4b3eff4848430b4f93';
-    const website = { status: 'About to be inactive', save: jest.fn() };
+    const website = { status: WebStatusEnum.about_to_be_inactive, save: jest.fn() };
     Website.findById.mockResolvedValue(website);
 
     const result = await startStopWebsitePart2(websiteId);
 
     expect(Website.findById).toHaveBeenCalledWith(websiteId);
-    expect(website.status).toBe('Inactive');
+    expect(website.status).toBe(WebStatusEnum.inactive);
     expect(website.save).toHaveBeenCalled();
     expect(result).toEqual({ success: true, message: `seccuss change status to ${website.status}` });
   });
 
-  it('should change the status to "Active" if the current status is "About to be active"', async () => {
+  it('should change the status to "active" if the current status is "about to be active"', async () => {
     const websiteId = '6476fb4b3eff4848430b4f93';
-    const website = { status: 'About to be active', save: jest.fn() };
+    const website = { status: WebStatusEnum.about_to_be_active, save: jest.fn() };
     Website.findById.mockResolvedValue(website);
 
     const result = await startStopWebsitePart2(websiteId);
 
     expect(Website.findById).toHaveBeenCalledWith(websiteId);
-    expect(website.status).toBe('Active');
+    expect(website.status).toBe(WebStatusEnum.active);
     expect(website.save).toHaveBeenCalled();
     expect(result).toEqual({ success: true, message: `seccuss change status to ${website.status}` });
   });
 
-  it('should return an error message if the current status is neither "About to be inactive" nor "About to be active"', async () => {
+  it('should return an error message if the current status is neither "about to be inactive" nor "about to be active"', async () => {
     const websiteId = '6476fb4b3eff4848430b4f93';
-    const website = { status: 'Active' };
+    const website = { status: WebStatusEnum.active };
     Website.findById.mockResolvedValue(website);
 
     const result = await startStopWebsitePart2(websiteId);
