@@ -8,7 +8,7 @@ export const getAllWebsites = (req, res) => {
   */
   Website.find()
     .then((websites) => {
-      res.status(200).send({ websites });
+      res.status(200).send(websites);
     })
     .catch((error) => { res.status(404).send({ message: error.message }); });
 };
