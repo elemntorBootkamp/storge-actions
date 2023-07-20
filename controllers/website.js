@@ -18,6 +18,8 @@ export const getAllWebsites = async (req, res) => {
   }
 };
 export const getWebsiteById = async (req, res) => {
+  logger.info('ikujyh');
+
   /*
   #swagger.tags=['Website']
   #swagger.parameters['id'] = {

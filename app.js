@@ -36,6 +36,7 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
 
 app.use(websiteRoutes);
 app.use(backupRoutes);
+app.use('/web', websiteRoutes);
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
